@@ -1,7 +1,9 @@
 import 'package:flutter/widgets.dart';
-import 'package:miniui/miniui.dart';
 import 'package:miniui/demo/list_page.dart';
+import 'package:miniui/demo/layout_page.dart';
 import 'package:miniui/demo/tokens_page.dart';
+import 'package:miniui/demo/feedback_page.dart';
+import 'package:miniui/miniui.dart';
 
 class MiniHomePage extends StatefulWidget {
   final MiniThemeController controller;
@@ -289,6 +291,29 @@ class _MiniHomePageState extends State<MiniHomePage> {
               variant: MiniButtonVariant.ghost,
               onPressed: () {
                 Navigator.of(context).pushNamed(MiniTokensPage.routeName);
+              },
+            ),
+          ),
+          const SizedBox(height: 8),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: MiniButton(
+              label: '查看布局与导航示例',
+              variant: MiniButtonVariant.ghost,
+              onPressed: () {
+                Navigator.of(context).pushNamed(MiniLayoutDemoPage.routeName);
+              },
+            ),
+          ),
+          const SizedBox(height: 8),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: MiniButton(
+              label: '查看反馈组件示例',
+              variant: MiniButtonVariant.ghost,
+              onPressed: () {
+                Navigator.of(context)
+                    .pushNamed(MiniFeedbackDemoPage.routeName);
               },
             ),
           ),

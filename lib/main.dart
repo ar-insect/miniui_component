@@ -3,6 +3,8 @@ import 'package:miniui/core/base/base_component.dart';
 import 'package:miniui/demo/home_page.dart';
 import 'package:miniui/demo/list_page.dart';
 import 'package:miniui/demo/tokens_page.dart';
+import 'package:miniui/demo/layout_page.dart';
+import 'package:miniui/demo/feedback_page.dart';
 
 void main() {
   final MiniThemeController controller = MiniThemeController();
@@ -66,6 +68,12 @@ class _MiniUiAppState extends State<MiniUiApp> {
                 break;
               case MiniTokensPage.routeName:
                 page = const MiniTokensPage();
+                break;
+              case MiniLayoutDemoPage.routeName:
+                page = const MiniLayoutDemoPage();
+                break;
+              case MiniFeedbackDemoPage.routeName:
+                page = const MiniFeedbackDemoPage();
                 break;
               case '/':
               default:

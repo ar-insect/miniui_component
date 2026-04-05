@@ -212,6 +212,50 @@ WidgetsApp(
 );
 ```
 
+### 自定义皮肤 / 自定义主题 Token 示例
+
+在内置 `light / dark / blue / red / festival / glass` 之外，你可以基于 Token 定义一套自己的品牌皮肤，例如：
+
+```dart
+import 'package:flutter/widgets.dart';
+import 'package:miniui/miniui.dart';
+
+// 定义一套自定义主题 Token
+const MiniTheme brandTheme = MiniTheme(
+  name: 'brand',
+  brightness: Brightness.light,
+  colors: MiniColorTokens(
+    primary: Color(0xFF6200EE),
+    background: Color(0xFFF3EFFE),
+    foreground: Color(0xFF1D1B20),
+    accent: Color(0xFF03DAC6),
+    danger: Color(0xFFB00020),
+  ),
+  spacing: MiniThemes.defaultSpacing,
+  radius: MiniThemes.defaultRadius,
+  typography: MiniThemes.defaultTypography,
+);
+
+void main() {
+  // 使用自定义主题作为初始皮肤，并将其加入可选皮肤列表
+  final controller = MiniThemeController(
+    initialTheme: brandTheme,
+    availableThemes: <MiniTheme>[
+      brandTheme,
+      ...MiniThemes.all,
+    ],
+  );
+
+  runApp(MyApp(controller: controller));
+}
+```
+
+这样一来：
+
+- 组件内部会自动读取 `brandTheme` 中的颜色 / 间距 / 圆角 / 排版 Token；
+- Demo 或宿主应用中可以通过 `MiniThemeController` 在内置主题和自定义皮肤之间切换；
+- 你也可以按同样方式定义多套品牌皮肤，再统一放入 `availableThemes` 中管理。
+
 ---
 
 ## 组件一览

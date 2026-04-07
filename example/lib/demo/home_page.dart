@@ -1,9 +1,10 @@
 import 'package:flutter/widgets.dart';
-import 'package:miniui/miniui.dart';
 import 'list_page.dart';
 import 'layout_page.dart';
 import 'tokens_page.dart';
 import 'feedback_page.dart';
+import 'custom_tokens_page.dart';
+import 'package:miniui/miniui.dart';
 
 class MiniHomePage extends StatefulWidget {
   final MiniThemeController controller;
@@ -39,8 +40,6 @@ class _MiniHomePageState extends State<MiniHomePage> {
               children: <Widget>[
                 _buildHeader(theme),
                 const SizedBox(height: 16),
-                _buildThemeCard(theme),
-                const SizedBox(height: 16),
                 _buildComponentsCard(theme),
                 const SizedBox(height: 16),
                 _buildFormCard(theme),
@@ -57,44 +56,24 @@ class _MiniHomePageState extends State<MiniHomePage> {
   }
 
   Widget _buildHeader(MiniTheme theme) {
-    return MiniText(
-      'MiniUi',
-      style: const TextStyle(
-        fontSize: 24,
-        fontWeight: FontWeight.bold,
-      ),
-    );
-  }
-
-  Widget _buildThemeCard(MiniTheme theme) {
-    return MiniCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          MiniText(
-            '当前主题：${theme.name}',
-            style: const TextStyle(fontSize: 16),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const MiniText(
+          'MiniUi',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
           ),
-          const SizedBox(height: 12),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: widget.controller.availableThemes
-                .map(
-                  (MiniTheme t) => MiniButton(
-                    label: t.name,
-                    variant: t == theme
-                        ? MiniButtonVariant.primary
-                        : MiniButtonVariant.ghost,
-                    onPressed: () {
-                      widget.controller.setTheme(t);
-                    },
-                  ),
-                )
-                .toList(),
+        ),
+        const SizedBox(height: 4),
+        MiniText(
+          '当前主题：${theme.name}',
+          style: theme.typography.small.copyWith(
+            color: theme.colors.foreground.withOpacity(0.7),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -317,9 +296,20 @@ class _MiniHomePageState extends State<MiniHomePage> {
               },
             ),
           ),
+          const SizedBox(height: 8),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: MiniButton(
+              label: '查看自定义外观示例',
+              variant: MiniButtonVariant.ghost,
+              onPressed: () {
+                Navigator.of(context)
+                    .pushNamed(MiniCustomTokensPage.routeName);
+              },
+            ),
+          ),
         ],
       ),
     );
   }
 }
-

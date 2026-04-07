@@ -38,6 +38,27 @@ class MiniThemeController extends ChangeNotifier {
       }
     }
   }
+
+  /// 基于当前主题，按需替换 spacing / radius / typography 等 Token。
+  ///
+  /// 调用者可以先通过 [theme] 读取当前 Token，再使用 copyWith/自定义
+  /// 数值构造新的 Token，并传入本方法完成整体更新。
+  void updateTokens({
+    MiniSpacingTokens? spacing,
+    MiniRadiusTokens? radius,
+    MiniTypographyTokens? typography,
+  }) {
+    final MiniTheme next = _theme.copyWith(
+      spacing: spacing ?? _theme.spacing,
+      radius: radius ?? _theme.radius,
+      typography: typography ?? _theme.typography,
+    );
+    if (identical(next, _theme)) {
+      return;
+    }
+    _theme = next;
+    notifyListeners();
+  }
 }
 
 /// 将 [MiniTheme] 注入到 Widget 树中的 InheritedWidget。
@@ -71,5 +92,58 @@ abstract class BaseComponent extends StatelessWidget {
   /// 从上下文中获取当前生效的主题。
   MiniTheme themeOf(BuildContext context) {
     return MiniThemeProvider.of(context);
+  }
+}
+
+class AnimatedMiniTheme extends ImplicitlyAnimatedWidget {
+  final MiniTheme theme;
+  final Widget child;
+
+  const AnimatedMiniTheme({
+    super.key,
+    required this.theme,
+    required this.child,
+    required super.duration,
+    super.curve,
+    super.onEnd,
+  });
+
+  @override
+  AnimatedWidgetBaseState<AnimatedMiniTheme> createState() =>
+      _AnimatedMiniThemeState();
+}
+
+class _AnimatedMiniThemeState
+    extends AnimatedWidgetBaseState<AnimatedMiniTheme> {
+  MiniThemeTween? _themeTween;
+
+  @override
+  void forEachTween(TweenVisitor<dynamic> visitor) {
+    _themeTween = visitor(
+      _themeTween,
+      widget.theme,
+      (dynamic value) => MiniThemeTween(begin: value as MiniTheme),
+    ) as MiniThemeTween?;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final MiniTheme theme = _themeTween?.evaluate(animation) ?? widget.theme;
+    return MiniThemeProvider(
+      theme: theme,
+      child: widget.child,
+    );
+  }
+}
+
+class MiniThemeTween extends Tween<MiniTheme> {
+  MiniThemeTween({
+    required super.begin,
+    super.end,
+  });
+
+  @override
+  MiniTheme lerp(double t) {
+    return MiniTheme.lerp(begin!, end ?? begin!, t);
   }
 }

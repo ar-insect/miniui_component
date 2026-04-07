@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:miniui/miniui.dart';
+import 'demo/custom_tokens_page.dart';
 import 'demo/home_page.dart';
 import 'demo/list_page.dart';
 import 'demo/tokens_page.dart';
@@ -55,8 +56,9 @@ class _MiniUiAppState extends State<MiniUiApp> {
 
     return Directionality(
       textDirection: TextDirection.ltr,
-      child: MiniThemeProvider(
+      child: AnimatedMiniTheme(
         theme: theme,
+        duration: const Duration(milliseconds: 220),
         child: WidgetsApp(
           color: theme.colors.background,
           debugShowCheckedModeBanner: false,
@@ -74,6 +76,11 @@ class _MiniUiAppState extends State<MiniUiApp> {
                 break;
               case MiniFeedbackDemoPage.routeName:
                 page = const MiniFeedbackDemoPage();
+                break;
+              case MiniCustomTokensPage.routeName:
+                page = MiniCustomTokensPage(
+                  controller: widget.controller,
+                );
                 break;
               case '/':
               default:
@@ -94,4 +101,3 @@ class _MiniUiAppState extends State<MiniUiApp> {
     );
   }
 }
-

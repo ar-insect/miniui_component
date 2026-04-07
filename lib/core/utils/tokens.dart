@@ -195,6 +195,18 @@ class MiniComponentSizeTokens {
           EdgeInsets.lerp(a.inputPadding, b.inputPadding, t) ?? b.inputPadding,
     );
   }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        other is MiniComponentSizeTokens &&
+            runtimeType == other.runtimeType &&
+            buttonPadding == other.buttonPadding &&
+            inputPadding == other.inputPadding;
+  }
+
+  @override
+  int get hashCode => Object.hash(buttonPadding, inputPadding);
 }
 
 /// 聚合颜色、间距、圆角、排版等多类 Token，构成一整套主题。

@@ -14,7 +14,8 @@ class MiniLoadingOverlay extends BaseComponent {
 
     final MiniTheme theme = MiniThemeProvider.of(context);
 
-    final OverlayEntry entry = OverlayEntry(
+    late final OverlayEntry entry;
+    entry = OverlayEntry(
       builder: (BuildContext overlayContext) {
         return ColoredBox(
           color: const Color(0x66000000),
@@ -46,4 +47,3 @@ class MiniLoadingOverlay extends BaseComponent {
     return const SizedBox.shrink();
   }
 }
-

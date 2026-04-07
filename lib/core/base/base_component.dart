@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:miniui/core/utils/tokens.dart';
 
@@ -94,6 +97,66 @@ abstract class BaseComponent extends StatelessWidget {
   /// 从上下文中获取当前生效的主题。
   MiniTheme themeOf(BuildContext context) {
     return MiniThemeProvider.of(context);
+  }
+}
+
+bool miniIsGlassIOS(MiniTheme theme) {
+  return theme.name == 'glass' && defaultTargetPlatform == TargetPlatform.iOS;
+}
+
+class MiniGlassSurface extends StatelessWidget {
+  final MiniTheme theme;
+  final BorderRadius borderRadius;
+  final Color backgroundColor;
+  final BoxBorder? border;
+  final Widget child;
+
+  const MiniGlassSurface({
+    super.key,
+    required this.theme,
+    required this.borderRadius,
+    required this.backgroundColor,
+    this.border,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: borderRadius,
+      child: BackdropFilter(
+        filter: ImageFilter.blur(
+          sigmaX: 30,
+          sigmaY: 30,
+        ),
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: borderRadius,
+            border: border,
+          ),
+          child: child,
+        ),
+      ),
+    );
+  }
+}
+
+Future<void> miniShowOverlayEntry({
+  required OverlayState overlay,
+  required Duration duration,
+  required WidgetBuilder builder,
+}) async {
+  final OverlayEntry entry = OverlayEntry(
+    builder: builder,
+  );
+
+  overlay.insert(entry);
+
+  await Future<void>.delayed(duration);
+
+  if (entry.mounted) {
+    entry.remove();
   }
 }
 

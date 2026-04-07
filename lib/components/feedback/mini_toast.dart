@@ -25,7 +25,9 @@ class MiniToast extends BaseComponent {
 
     final MiniTheme theme = MiniThemeProvider.of(context);
 
-    final OverlayEntry entry = OverlayEntry(
+    await miniShowOverlayEntry(
+      overlay: overlay,
+      duration: duration,
       builder: (BuildContext overlayContext) {
         return Positioned.fill(
           child: IgnorePointer(
@@ -42,12 +44,6 @@ class MiniToast extends BaseComponent {
         );
       },
     );
-
-    overlay.insert(entry);
-
-    await Future<void>.delayed(duration);
-
-    entry.remove();
   }
 
   @override
@@ -77,4 +73,3 @@ class MiniToast extends BaseComponent {
     );
   }
 }
-

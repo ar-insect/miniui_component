@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:miniui/core/base/base_component.dart';
 
@@ -24,8 +23,7 @@ class MiniAppBar extends BaseComponent {
   @override
   Widget build(BuildContext context) {
     final MiniTheme theme = themeOf(context);
-    final bool isGlass =
-        theme.name == 'glass' && defaultTargetPlatform == TargetPlatform.iOS;
+    final bool isGlass = miniIsGlassIOS(theme);
     final double barHeight =
         height ?? (isGlass ? 44 : theme.spacing.xl * 2);
 
@@ -51,6 +49,13 @@ class MiniAppBar extends BaseComponent {
       ],
     );
 
+    final Border border = Border(
+      bottom: BorderSide(
+        color: theme.colors.foreground
+            .withValues(alpha: isGlass ? 0.08 : 0.06),
+      ),
+    );
+
     if (!isGlass) {
       return Container(
         height: barHeight,
@@ -59,11 +64,7 @@ class MiniAppBar extends BaseComponent {
         ),
         decoration: BoxDecoration(
           color: theme.colors.background,
-          border: Border(
-            bottom: BorderSide(
-              color: theme.colors.foreground.withValues(alpha: 0.06),
-            ),
-          ),
+          border: border,
         ),
         child: row,
       );
@@ -82,11 +83,7 @@ class MiniAppBar extends BaseComponent {
           ),
           decoration: BoxDecoration(
             color: theme.colors.background.withValues(alpha: 0.24),
-            border: Border(
-              bottom: BorderSide(
-                color: theme.colors.foreground.withValues(alpha: 0.08),
-              ),
-            ),
+            border: border,
           ),
           child: row,
         ),

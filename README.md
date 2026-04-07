@@ -377,6 +377,189 @@ const ExtendedSpacing kExtendedSpacing = ExtendedSpacing(
 
 ---
 
+## 进阶：Glass / Overlay / Size Preset Helper
+
+### Glass Helper：miniIsGlassIOS / MiniGlassSurface
+
+在多个组件中会用到 iOS 下的玻璃态视觉（模糊 + 半透明背景 + 边框），为减少重复代码，核心层提供了：
+
+```dart
+// lib/core/base/base_component.dart
+bool miniIsGlassIOS(MiniTheme theme) {
+  return theme.name == 'glass' &&
+      defaultTargetPlatform == TargetPlatform.iOS;
+}
+
+class MiniGlassSurface extends StatelessWidget {
+  final MiniTheme theme;
+  final BorderRadius borderRadius;
+  final Color backgroundColor;
+  final BoxBorder? border;
+  final Widget child;
+
+  const MiniGlassSurface({
+    super.key,
+    required this.theme,
+    required this.borderRadius,
+    required this.backgroundColor,
+    this.border,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: borderRadius,
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: borderRadius,
+            border: border,
+          ),
+          child: child,
+        ),
+      ),
+    );
+  }
+}
+```
+
+库内的 `MiniCard` / `MiniAppBar` / `MiniTabBar` 都已统一使用这些 helper，你在自定义组件里也可以直接复用：
+
+```dart
+final theme = MiniThemeProvider.of(context);
+
+if (miniIsGlassIOS(theme)) {
+  return MiniGlassSurface(
+    theme: theme,
+    borderRadius: theme.radius.medium,
+    backgroundColor: theme.colors.background.withValues(alpha: 0.24),
+    border: Border.all(
+      color: theme.colors.foreground.withValues(alpha: 0.08),
+    ),
+    child: child,
+  );
+}
+```
+
+### Overlay Helper：miniShowOverlayEntry
+
+Toast / Snackbar 等临时浮层需要统一的 OverlayEntry 管理逻辑。核心层提供了一个简单的 helper：
+
+```dart
+// lib/core/base/base_component.dart
+Future<void> miniShowOverlayEntry({
+  required OverlayState overlay,
+  required Duration duration,
+  required WidgetBuilder builder,
+}) async {
+  final OverlayEntry entry = OverlayEntry(builder: builder);
+
+  overlay.insert(entry);
+  await Future<void>.delayed(duration);
+
+  if (entry.mounted) {
+    entry.remove();
+  }
+}
+```
+
+`MiniToast.show` 与 `MiniSnackbar.show` 都已经改为复用这个 helper。你在业务侧做自己的浮层时也可以直接使用：
+
+```dart
+Future<void> showCustomBanner(BuildContext context, String text) {
+  final overlay = Overlay.of(context);
+  if (overlay == null) return Future.value();
+
+  final theme = MiniThemeProvider.of(context);
+
+  return miniShowOverlayEntry(
+    overlay: overlay,
+    duration: const Duration(seconds: 2),
+    builder: (context) {
+      return Positioned(
+        left: theme.spacing.lg,
+        right: theme.spacing.lg,
+        top: theme.spacing.lg,
+        child: MiniCard(
+          child: MiniText(text),
+        ),
+      );
+    },
+  );
+}
+```
+
+### 尺寸 Preset：MiniSizePreset（组合 Spacing/Radius/Typography/ComponentSize）
+
+在 `tokens.dart` 中，尺寸相关的 Token（`MiniSpacingTokens` / `MiniRadiusTokens` / `MiniTypographyTokens` / `MiniComponentSizeTokens`）可以通过 `MiniSizePreset` 这个组合类型统一描述：
+
+```dart
+class MiniSizePreset {
+  final MiniSpacingTokens spacing;
+  final MiniRadiusTokens radius;
+  final MiniTypographyTokens typography;
+  final MiniComponentSizeTokens componentSizes;
+
+  const MiniSizePreset({
+    required this.spacing,
+    required this.radius,
+    required this.typography,
+    required this.componentSizes,
+  });
+}
+```
+
+`MiniThemes` 中的 `default/compact/rounded` 主题在数值上分别对应一套 size preset，你可以在宿主侧或未来扩展中用它来描述自己的尺寸组合，例如：
+
+```dart
+const MiniSizePreset densePreset = MiniSizePreset(
+  spacing: MiniSpacingTokens(xs: 2, sm: 6, md: 10, lg: 14, xl: 18),
+  radius: MiniRadiusTokens(
+    small: BorderRadius.all(Radius.circular(2)),
+    medium: BorderRadius.all(Radius.circular(6)),
+    large: BorderRadius.all(Radius.circular(10)),
+    pill: BorderRadius.all(Radius.circular(999)),
+  ),
+  typography: MiniTypographyTokens(
+    body: TextStyle(fontSize: 14),
+    small: TextStyle(fontSize: 12),
+    title: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+    heading: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+  ),
+  componentSizes: MiniComponentSizeTokens(
+    buttonPadding: EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+    inputPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+  ),
+);
+```
+
+然后在自定义主题中统一使用这套 preset 的字段：
+
+```dart
+const MiniTheme denseTheme = MiniTheme(
+  name: 'dense',
+  brightness: Brightness.light,
+  colors: MiniColorTokens(
+    primary: Color(0xFF0066FF),
+    background: Color(0xFFFFFFFF),
+    foreground: Color(0xFF111827),
+    accent: Color(0xFF10B981),
+    danger: Color(0xFFEF4444),
+  ),
+  spacing: densePreset.spacing,
+  radius: densePreset.radius,
+  typography: densePreset.typography,
+  componentSizes: densePreset.componentSizes,
+);
+```
+
+这样可以把「尺寸风格」和「颜色风格」解耦：颜色可以随品牌切换，尺寸可以根据平台/用户偏好选择不同 preset，组合成最终的 `MiniTheme`。
+
+---
+
 ## 组件一览
 
 所有组件通过 [`lib/miniui.dart`](lib/miniui.dart) 对外导出：

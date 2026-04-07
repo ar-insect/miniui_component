@@ -209,6 +209,20 @@ class MiniComponentSizeTokens {
   int get hashCode => Object.hash(buttonPadding, inputPadding);
 }
 
+class MiniSizePreset {
+  final MiniSpacingTokens spacing;
+  final MiniRadiusTokens radius;
+  final MiniTypographyTokens typography;
+  final MiniComponentSizeTokens componentSizes;
+
+  const MiniSizePreset({
+    required this.spacing,
+    required this.radius,
+    required this.typography,
+    required this.componentSizes,
+  });
+}
+
 /// 聚合颜色、间距、圆角、排版等多类 Token，构成一整套主题。
 class MiniTheme {
   final String name;

@@ -29,7 +29,9 @@ class MiniSnackbar extends BaseComponent {
 
     final MiniTheme theme = MiniThemeProvider.of(context);
 
-    final OverlayEntry entry = OverlayEntry(
+    await miniShowOverlayEntry(
+      overlay: overlay,
+      duration: duration,
       builder: (BuildContext overlayContext) {
         return Positioned(
           left: theme.spacing.lg,
@@ -43,14 +45,6 @@ class MiniSnackbar extends BaseComponent {
         );
       },
     );
-
-    overlay.insert(entry);
-
-    await Future<void>.delayed(duration);
-
-    if (entry.mounted) {
-      entry.remove();
-    }
   }
 
   @override
@@ -99,4 +93,3 @@ class MiniSnackbar extends BaseComponent {
     );
   }
 }
-

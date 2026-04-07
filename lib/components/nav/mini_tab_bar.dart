@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:miniui/components/text/mini_text.dart';
 import 'package:miniui/core/base/base_component.dart';
@@ -34,8 +33,7 @@ class MiniTabBar extends BaseComponent {
   @override
   Widget build(BuildContext context) {
     final MiniTheme theme = themeOf(context);
-    final bool isGlass =
-        theme.name == 'glass' && defaultTargetPlatform == TargetPlatform.iOS;
+    final bool isGlass = miniIsGlassIOS(theme);
 
     final Widget row = Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,

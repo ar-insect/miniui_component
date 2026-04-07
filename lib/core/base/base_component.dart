@@ -47,11 +47,13 @@ class MiniThemeController extends ChangeNotifier {
     MiniSpacingTokens? spacing,
     MiniRadiusTokens? radius,
     MiniTypographyTokens? typography,
+    MiniComponentSizeTokens? componentSizes,
   }) {
     final MiniTheme next = _theme.copyWith(
       spacing: spacing ?? _theme.spacing,
       radius: radius ?? _theme.radius,
       typography: typography ?? _theme.typography,
+      componentSizes: componentSizes ?? _theme.componentSizes,
     );
     if (identical(next, _theme)) {
       return;

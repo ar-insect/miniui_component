@@ -5,7 +5,7 @@
 - 完全不依赖 `material.dart`
 - 多主题（浅色 / 深色 / 蓝色 / 红色 / 节日…）统一管理
 - 可作为 SDK / 组件库跨项目复用
-- 纯 Token 驱动的设计系统（Color / Spacing / Radius / Typography）
+- 纯 Token 驱动的设计系统（Color / Spacing / Radius / Typography / ComponentSize）
 
 当前仓库同时包含组件实现与可视化 Demo（通过 `example/` 示例应用运行）。
 
@@ -165,6 +165,7 @@ example/
 - `MiniSpacingTokens`
 - `MiniRadiusTokens`
 - `MiniTypographyTokens`
+- `MiniComponentSizeTokens`（组件尺寸 Token：按钮 / 输入框大小等）
 - `MiniTheme`（聚合以上 Tokens）
 - `MiniThemes`（内置多套主题）
 
@@ -178,6 +179,7 @@ class MiniTheme {
   final MiniSpacingTokens spacing;
   final MiniRadiusTokens radius;
   final MiniTypographyTokens typography;
+  final MiniComponentSizeTokens componentSizes;
 }
 ```
 
@@ -187,6 +189,78 @@ class MiniTheme {
 - 圆角：`theme.radius.medium`
 - 字体：`theme.typography.body`
 - 颜色：`theme.colors.primary / background / foreground ...`
+- 组件尺寸：`theme.componentSizes.buttonPadding / inputPadding`
+
+### 组件尺寸 Token：MiniComponentSizeTokens
+
+组件大小（按钮高度、输入框高度等）统一由 `MiniComponentSizeTokens` 控制，而不是写死在组件内部：
+
+```dart
+class MiniComponentSizeTokens {
+  final EdgeInsets buttonPadding;
+  final EdgeInsets inputPadding;
+}
+```
+
+内置主题已经为你填好了默认值，对应当前视觉（不会改变现有效果）：
+
+- 默认主题族（`light / dark / blue / red / festival / glass`）
+  - `buttonPadding = EdgeInsets.symmetric(horizontal: 20, vertical: 10)`
+  - `inputPadding  = EdgeInsets.symmetric(horizontal: 14, vertical: 10)`
+- `compact` 主题
+  - `buttonPadding = EdgeInsets.symmetric(horizontal: 14, vertical: 6)`
+  - `inputPadding  = EdgeInsets.symmetric(horizontal: 10, vertical: 6)`
+- `rounded` 主题
+  - `buttonPadding = EdgeInsets.symmetric(horizontal: 24, vertical: 12)`
+  - `inputPadding  = EdgeInsets.symmetric(horizontal: 16, vertical: 12)`
+
+对应组件内部也已经切换为读 Token：
+
+- `MiniButton` 使用 `theme.componentSizes.buttonPadding` 作为 padding  
+- `MiniInput` 使用 `theme.componentSizes.inputPadding` 作为 padding（各平台分支只负责外观样式）
+
+你可以通过两种方式修改组件大小：
+
+1. 自定义主题时直接指定组件尺寸 Token：
+
+```dart
+const MiniTheme brandTheme = MiniTheme(
+  name: 'brand',
+  brightness: Brightness.light,
+  colors: MiniColorTokens(
+    primary: Color(0xFF6200EE),
+    background: Color(0xFFF3EFFE),
+    foreground: Color(0xFF1D1B20),
+    accent: Color(0xFF03DAC6),
+    danger: Color(0xFFB00020),
+  ),
+  spacing: MiniThemes.defaultSpacing,
+  radius: MiniThemes.defaultRadius,
+  typography: MiniThemes.defaultTypography,
+  componentSizes: MiniComponentSizeTokens(
+    buttonPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+    inputPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+  ),
+);
+```
+
+2. 运行时通过 `MiniThemeController.updateTokens` 动态调整：
+
+```dart
+final controller = MiniThemeController(initialTheme: MiniThemes.light);
+
+void enlargeButtons() {
+  final current = controller.theme.componentSizes;
+  controller.updateTokens(
+    componentSizes: current.copyWith(
+      buttonPadding: current.buttonPadding +
+          const EdgeInsets.symmetric(vertical: 4),
+    ),
+  );
+}
+```
+
+这样一来，后续调整组件尺寸只需要改 Token，而无需修改 `MiniButton` / `MiniInput` 等组件实现。
 
 ### 主题控制与注入
 

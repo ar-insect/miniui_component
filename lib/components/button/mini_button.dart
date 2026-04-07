@@ -40,10 +40,7 @@ class MiniButton extends BaseComponent {
             border: Border.all(color: colors.border),
           ),
           child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: theme.spacing.lg,
-              vertical: theme.spacing.sm,
-            ),
+            padding: theme.componentSizes.buttonPadding,
             child: DefaultTextStyle(
               style: theme.typography.body.copyWith(
                 color: colors.foreground,

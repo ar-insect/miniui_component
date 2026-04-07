@@ -48,7 +48,7 @@ class _MiniInputState extends State<MiniInput> {
     final bool isGlass = isIOS && theme.name == 'glass';
 
     BoxDecoration decoration;
-    EdgeInsetsGeometry padding;
+    EdgeInsetsGeometry padding = theme.componentSizes.inputPadding;
 
     if (isGlass) {
       decoration = BoxDecoration(
@@ -58,10 +58,6 @@ class _MiniInputState extends State<MiniInput> {
           color: theme.colors.foreground.withValues(alpha: 0.08),
         ),
       );
-      padding = EdgeInsets.symmetric(
-        horizontal: theme.spacing.md,
-        vertical: theme.spacing.sm,
-      );
     } else if (isIOS) {
       decoration = BoxDecoration(
         color: theme.colors.foreground.withValues(alpha: 0.06),
@@ -70,10 +66,6 @@ class _MiniInputState extends State<MiniInput> {
           color: theme.colors.foreground.withValues(alpha: 0.06),
         ),
       );
-      padding = EdgeInsets.symmetric(
-        horizontal: theme.spacing.md,
-        vertical: theme.spacing.sm,
-      );
     } else {
       decoration = BoxDecoration(
         color: theme.colors.background,
@@ -81,10 +73,6 @@ class _MiniInputState extends State<MiniInput> {
         border: Border.all(
           color: theme.colors.foreground.withValues(alpha: 0.2),
         ),
-      );
-      padding = EdgeInsets.symmetric(
-        horizontal: theme.spacing.md,
-        vertical: theme.spacing.sm,
       );
     }
 

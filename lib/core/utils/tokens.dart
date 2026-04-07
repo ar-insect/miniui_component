@@ -164,6 +164,39 @@ class MiniTypographyTokens {
   }
 }
 
+class MiniComponentSizeTokens {
+  final EdgeInsets buttonPadding;
+  final EdgeInsets inputPadding;
+
+  const MiniComponentSizeTokens({
+    required this.buttonPadding,
+    required this.inputPadding,
+  });
+
+  MiniComponentSizeTokens copyWith({
+    EdgeInsets? buttonPadding,
+    EdgeInsets? inputPadding,
+  }) {
+    return MiniComponentSizeTokens(
+      buttonPadding: buttonPadding ?? this.buttonPadding,
+      inputPadding: inputPadding ?? this.inputPadding,
+    );
+  }
+
+  static MiniComponentSizeTokens lerp(
+    MiniComponentSizeTokens a,
+    MiniComponentSizeTokens b,
+    double t,
+  ) {
+    return MiniComponentSizeTokens(
+      buttonPadding: EdgeInsets.lerp(a.buttonPadding, b.buttonPadding, t) ??
+          b.buttonPadding,
+      inputPadding:
+          EdgeInsets.lerp(a.inputPadding, b.inputPadding, t) ?? b.inputPadding,
+    );
+  }
+}
+
 /// 聚合颜色、间距、圆角、排版等多类 Token，构成一整套主题。
 class MiniTheme {
   final String name;
@@ -172,6 +205,7 @@ class MiniTheme {
   final MiniSpacingTokens spacing;
   final MiniRadiusTokens radius;
   final MiniTypographyTokens typography;
+  final MiniComponentSizeTokens componentSizes;
 
   const MiniTheme({
     required this.name,
@@ -180,6 +214,7 @@ class MiniTheme {
     required this.spacing,
     required this.radius,
     required this.typography,
+    required this.componentSizes,
   });
 
   MiniTheme copyWith({
@@ -189,6 +224,7 @@ class MiniTheme {
     MiniSpacingTokens? spacing,
     MiniRadiusTokens? radius,
     MiniTypographyTokens? typography,
+    MiniComponentSizeTokens? componentSizes,
   }) {
     return MiniTheme(
       name: name ?? this.name,
@@ -197,6 +233,7 @@ class MiniTheme {
       spacing: spacing ?? this.spacing,
       radius: radius ?? this.radius,
       typography: typography ?? this.typography,
+      componentSizes: componentSizes ?? this.componentSizes,
     );
   }
 
@@ -209,6 +246,7 @@ class MiniTheme {
     final double spacingT = Curves.easeOutCubic.transform(t);
     final double radiusT = Curves.easeOut.transform(t);
     final double typographyT = Curves.easeInOut.transform(t);
+    final double componentSizeT = spacingT;
 
     const double brightnessFlipPoint = 0.75;
     final Brightness brightness =
@@ -220,14 +258,58 @@ class MiniTheme {
       colors: MiniColorTokens.lerp(a.colors, b.colors, colorT),
       spacing: MiniSpacingTokens.lerp(a.spacing, b.spacing, spacingT),
       radius: MiniRadiusTokens.lerp(a.radius, b.radius, radiusT),
-      typography:
-          MiniTypographyTokens.lerp(a.typography, b.typography, typographyT),
+      typography: MiniTypographyTokens.lerp(
+        a.typography,
+        b.typography,
+        typographyT,
+      ),
+      componentSizes: MiniComponentSizeTokens.lerp(
+        a.componentSizes,
+        b.componentSizes,
+        componentSizeT,
+      ),
     );
   }
 }
 
 /// 内置的一组主题工厂，提供默认间距/圆角/排版和多套配色方案。
 class MiniThemes {
+  static const MiniComponentSizeTokens defaultComponentSizes =
+      MiniComponentSizeTokens(
+    buttonPadding: EdgeInsets.symmetric(
+      horizontal: 20,
+      vertical: 10,
+    ),
+    inputPadding: EdgeInsets.symmetric(
+      horizontal: 14,
+      vertical: 10,
+    ),
+  );
+
+  static const MiniComponentSizeTokens compactComponentSizes =
+      MiniComponentSizeTokens(
+    buttonPadding: EdgeInsets.symmetric(
+      horizontal: 14,
+      vertical: 6,
+    ),
+    inputPadding: EdgeInsets.symmetric(
+      horizontal: 10,
+      vertical: 6,
+    ),
+  );
+
+  static const MiniComponentSizeTokens roundedComponentSizes =
+      MiniComponentSizeTokens(
+    buttonPadding: EdgeInsets.symmetric(
+      horizontal: 24,
+      vertical: 12,
+    ),
+    inputPadding: EdgeInsets.symmetric(
+      horizontal: 16,
+      vertical: 12,
+    ),
+  );
+
   static const MiniSpacingTokens defaultSpacing = MiniSpacingTokens(
     xs: 4,
     sm: 10,
@@ -343,6 +425,7 @@ class MiniThemes {
     spacing: defaultSpacing,
     radius: defaultRadius,
     typography: defaultTypography,
+    componentSizes: defaultComponentSizes,
   );
 
   static final MiniTheme dark = MiniTheme(
@@ -358,6 +441,7 @@ class MiniThemes {
     spacing: defaultSpacing,
     radius: defaultRadius,
     typography: defaultTypography,
+    componentSizes: defaultComponentSizes,
   );
 
   static final MiniTheme blue = MiniTheme(
@@ -373,6 +457,7 @@ class MiniThemes {
     spacing: defaultSpacing,
     radius: defaultRadius,
     typography: defaultTypography,
+    componentSizes: defaultComponentSizes,
   );
 
   static final MiniTheme red = MiniTheme(
@@ -388,6 +473,7 @@ class MiniThemes {
     spacing: defaultSpacing,
     radius: defaultRadius,
     typography: defaultTypography,
+    componentSizes: defaultComponentSizes,
   );
 
   static final MiniTheme festival = MiniTheme(
@@ -403,6 +489,7 @@ class MiniThemes {
     spacing: defaultSpacing,
     radius: defaultRadius,
     typography: defaultTypography,
+    componentSizes: defaultComponentSizes,
   );
 
   static final MiniTheme glass = MiniTheme(
@@ -418,6 +505,7 @@ class MiniThemes {
     spacing: defaultSpacing,
     radius: defaultRadius,
     typography: defaultTypography,
+    componentSizes: defaultComponentSizes,
   );
 
   static final MiniTheme compact = MiniTheme(
@@ -433,6 +521,7 @@ class MiniThemes {
     spacing: compactSpacing,
     radius: compactRadius,
     typography: compactTypography,
+    componentSizes: compactComponentSizes,
   );
 
   static final MiniTheme rounded = MiniTheme(
@@ -448,6 +537,7 @@ class MiniThemes {
     spacing: roundedSpacing,
     radius: roundedRadius,
     typography: roundedTypography,
+    componentSizes: roundedComponentSizes,
   );
 
   static final List<MiniTheme> all = <MiniTheme>[

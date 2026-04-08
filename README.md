@@ -25,7 +25,7 @@
 - 纯组件化封装  
   - 基础展示：`MiniText / MiniCard / MiniImage / MiniTag / MiniEmpty / MiniLoading`  
   - 交互输入：`MiniButton / MiniInput`  
-  - 表单控件：`MiniCheckbox / MiniRadio / MiniSwitch / MiniStepper / MiniSearchBar`  
+- 表单控件：`MiniCheckbox / MiniSwitch / MiniStepper / MiniSearchBar`  
   - 列表骨架：`MiniDivider / MiniListItem`  
   - 导航与布局：`MiniAppBar / MiniTabBar / MiniPageScaffold`  
   - 反馈：`MiniToast / MiniDialog / MiniActionSheet / MiniSnackbar / MiniLoadingOverlay`
@@ -585,7 +585,6 @@ import 'package:miniui/miniui.dart';
   - `MiniButton`（primary / ghost / danger）
   - `MiniInput`
   - `MiniCheckbox`
-  - `MiniRadio<T>`
   - `MiniSwitch`
   - `MiniStepper`
   - `MiniSearchBar`
@@ -633,7 +632,7 @@ import 'package:miniui/miniui.dart';
 
 - 主题卡片：展示当前主题名称 + 主题切换按钮（light/dark/blue/red/festival）
 - 基础组件示例：输入框 / Button / Tag / Loading
-- 表单示例：`MiniCheckbox + MiniRadio + MiniSwitch`
+- 表单示例：`MiniCheckbox + MiniSwitch`
 - 列表与 Toast 示例：
   - `MiniListItem + MiniDivider`
   - 点击列表项或按钮时，通过 `MiniToast.show` 弹出提示

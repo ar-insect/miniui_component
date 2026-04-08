@@ -13,7 +13,6 @@ export 'components/tag/mini_tag.dart';
 export 'components/text/mini_text.dart';
 
 export 'components/form/mini_checkbox.dart';
-export 'components/form/mini_radio.dart';
 export 'components/form/mini_switch.dart';
 export 'components/form/mini_stepper.dart';
 export 'components/form/mini_search_bar.dart';

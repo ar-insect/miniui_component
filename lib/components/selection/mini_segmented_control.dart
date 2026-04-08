@@ -33,7 +33,7 @@ class MiniSegmentedControl<T> extends BaseComponent {
     return DecoratedBox(
       decoration: BoxDecoration(
         color: theme.colors.background,
-        borderRadius: theme.radius.pill,
+        borderRadius: theme.radius.medium,
         border: Border.all(
           color: theme.colors.foreground.withValues(alpha: 0.12),
         ),
@@ -64,16 +64,16 @@ class MiniSegmentedControl<T> extends BaseComponent {
 
     BorderRadius radius;
     if (total == 1) {
-      radius = theme.radius.pill;
+      radius = theme.radius.medium;
     } else if (index == 0) {
       radius = BorderRadius.only(
-        topLeft: theme.radius.pill.topLeft,
-        bottomLeft: theme.radius.pill.bottomLeft,
+        topLeft: theme.radius.medium.topLeft,
+        bottomLeft: theme.radius.medium.bottomLeft,
       );
     } else if (index == total - 1) {
       radius = BorderRadius.only(
-        topRight: theme.radius.pill.topRight,
-        bottomRight: theme.radius.pill.bottomRight,
+        topRight: theme.radius.medium.topRight,
+        bottomRight: theme.radius.medium.bottomRight,
       );
     } else {
       radius = BorderRadius.zero;

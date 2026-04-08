@@ -26,8 +26,8 @@ class MiniSwitch extends BaseComponent {
     final Color thumbColor =
         value ? theme.colors.background : theme.colors.background;
 
-    final double width = theme.spacing.lg * 2.1;
-    final double height = theme.spacing.md * 1.4;
+    final double width = theme.spacing.lg * 2.6;
+    final double height = theme.spacing.md * 2.1;
     final double padding = theme.spacing.xs;
     final double thumbSize = height - padding * 2;
 
@@ -79,4 +79,3 @@ class MiniSwitch extends BaseComponent {
     );
   }
 }
-

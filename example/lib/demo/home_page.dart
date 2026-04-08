@@ -156,30 +156,17 @@ class _MiniHomePageState extends State<MiniHomePage> {
             },
           ),
           const SizedBox(height: 12),
-          Row(
-            children: <Widget>[
-              MiniRadio<String>(
-                value: 'a',
-                groupValue: _selectedOption,
-                label: '选项 A',
-                onChanged: (String v) {
-                  setState(() {
-                    _selectedOption = v;
-                  });
-                },
-              ),
-              SizedBox(width: theme.spacing.lg),
-              MiniRadio<String>(
-                value: 'b',
-                groupValue: _selectedOption,
-                label: '选项 B',
-                onChanged: (String v) {
-                  setState(() {
-                    _selectedOption = v;
-                  });
-                },
-              ),
+          MiniSegmentedControl<String>(
+            value: _selectedOption,
+            segments: const <MiniSegment<String>>[
+              MiniSegment<String>(value: 'a', label: '选项 A'),
+              MiniSegment<String>(value: 'b', label: '选项 B'),
             ],
+            onChanged: (String v) {
+              setState(() {
+                _selectedOption = v;
+              });
+            },
           ),
           const SizedBox(height: 12),
           Row(

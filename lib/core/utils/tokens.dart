@@ -518,22 +518,6 @@ class MiniThemes {
     componentSizes: defaultComponentSizes,
   );
 
-  static final MiniTheme glass = MiniTheme(
-    name: 'glass',
-    brightness: Brightness.light,
-    colors: const MiniColorTokens(
-      primary: Color(0xFF0A84FF),
-      background: Color(0xFFF2F2F7),
-      foreground: Color(0xFF1C1C1E),
-      accent: Color(0xFF64D2FF),
-      danger: Color(0xFFFF3B30),
-    ),
-    spacing: defaultSpacing,
-    radius: defaultRadius,
-    typography: defaultTypography,
-    componentSizes: defaultComponentSizes,
-  );
-
   static final MiniTheme compact = MiniTheme(
     name: 'compact',
     brightness: Brightness.light,
@@ -572,7 +556,6 @@ class MiniThemes {
     blue,
     red,
     festival,
-    glass,
     compact,
     rounded,
   ];

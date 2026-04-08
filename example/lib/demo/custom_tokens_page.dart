@@ -52,7 +52,7 @@ class _MiniCustomTokensPageState extends State<MiniCustomTokensPage> {
       ),
       body: Container(
         color: theme.colors.background,
-        child: Padding(
+        child: SingleChildScrollView(
           padding: EdgeInsets.all(theme.spacing.lg),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,

@@ -22,6 +22,51 @@ class MiniTag extends BaseComponent {
   Widget build(BuildContext context) {
     final MiniTheme theme = themeOf(context);
 
+    final EdgeInsetsGeometry resolvedPadding = padding == EdgeInsets.zero
+        ? EdgeInsets.symmetric(
+            horizontal: theme.spacing.sm,
+            vertical: theme.spacing.xs,
+          )
+        : padding;
+
+    final TextStyle labelStyle = theme.typography.small
+        .copyWith(color: theme.colors.accent);
+
+    final Widget labelText = DefaultTextStyle(
+      style: labelStyle,
+      child: Text(label),
+    );
+
+    Widget? closeButton;
+    if (closable && onClose != null) {
+      closeButton = GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: onClose,
+        child: Container(
+          width: theme.spacing.sm,
+          height: theme.spacing.sm,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: theme.colors.accent.withValues(alpha: 0.2),
+          ),
+        ),
+      );
+    }
+
+    final List<Widget> children = <Widget>[labelText];
+    if (closeButton != null) {
+      children.add(SizedBox(width: theme.spacing.xs));
+      children.add(closeButton);
+    }
+
+    final Widget content = Padding(
+      padding: resolvedPadding,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: children,
+      ),
+    );
+
     return DecoratedBox(
       decoration: BoxDecoration(
         color: filled
@@ -34,39 +79,7 @@ class MiniTag extends BaseComponent {
                 color: theme.colors.accent.withValues(alpha: 0.6),
               ),
       ),
-      child: Padding(
-        padding: padding == EdgeInsets.zero
-            ? EdgeInsets.symmetric(
-                horizontal: theme.spacing.sm,
-                vertical: theme.spacing.xs,
-              )
-            : padding,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            DefaultTextStyle(
-              style: theme.typography.small
-                  .copyWith(color: theme.colors.accent),
-              child: Text(label),
-            ),
-            if (closable && onClose != null) ...<Widget>[
-              SizedBox(width: theme.spacing.xs),
-              GestureDetector(
-                behavior: HitTestBehavior.opaque,
-                onTap: onClose,
-                child: Container(
-                  width: theme.spacing.sm,
-                  height: theme.spacing.sm,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: theme.colors.accent.withValues(alpha: 0.2),
-                  ),
-                ),
-              ),
-            ],
-          ],
-        ),
-      ),
+      child: content,
     );
   }
 }

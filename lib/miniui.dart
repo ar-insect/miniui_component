@@ -36,3 +36,5 @@ export 'components/selection/mini_segmented_control.dart';
 export 'components/data/mini_badge.dart';
 export 'components/data/mini_avatar.dart';
 export 'components/data/mini_skeleton.dart';
+export 'components/effects/mini_liquid_glass.dart';
+export 'components/data/mini_carousel.dart';

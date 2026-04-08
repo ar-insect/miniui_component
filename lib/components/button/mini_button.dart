@@ -28,32 +28,12 @@ class MiniButton extends BaseComponent {
     final MiniTheme theme = themeOf(context);
     final MiniButtonColors colors = _resolveColors(theme);
 
-    return Opacity(
-      opacity: disabled ? 0.5 : 1,
-      child: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: disabled ? null : onPressed,
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            color: colors.background,
-            borderRadius: theme.radius.medium,
-            border: Border.all(color: colors.border),
-          ),
-          child: Padding(
-            padding: theme.componentSizes.buttonPadding,
-            child: DefaultTextStyle(
-              style: theme.typography.body.copyWith(
-                color: colors.foreground,
-                fontWeight: FontWeight.w500,
-              ),
-              child: Text(
-                label,
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-        ),
-      ),
+    return _MiniButtonBody(
+      label: label,
+      onPressed: onPressed,
+      variant: variant,
+      disabled: disabled,
+      colors: colors,
     );
   }
 
@@ -79,6 +59,115 @@ class MiniButton extends BaseComponent {
           border: theme.colors.danger,
         );
     }
+  }
+}
+
+class _MiniButtonBody extends StatefulWidget {
+  final String label;
+  final VoidCallback? onPressed;
+  final MiniButtonVariant variant;
+  final bool disabled;
+  final MiniButtonColors colors;
+
+  const _MiniButtonBody({
+    required this.label,
+    this.onPressed,
+    required this.variant,
+    required this.disabled,
+    required this.colors,
+  });
+
+  @override
+  State<_MiniButtonBody> createState() => _MiniButtonBodyState();
+}
+
+class _MiniButtonBodyState extends State<_MiniButtonBody> {
+  bool _pressed = false;
+
+  void _handleTapDown(TapDownDetails details) {
+    if (widget.disabled || widget.onPressed == null) {
+      return;
+    }
+    setState(() {
+      _pressed = true;
+    });
+  }
+
+  void _handleTapEnd() {
+    if (widget.disabled || widget.onPressed == null) {
+      return;
+    }
+    Future<void>.delayed(const Duration(milliseconds: 80), () {
+      if (!mounted) {
+        return;
+      }
+      setState(() {
+        _pressed = false;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final MiniTheme theme = MiniThemeProvider.of(context);
+
+    Color background = widget.colors.background;
+
+    if (!widget.disabled && widget.onPressed != null && _pressed) {
+      switch (widget.variant) {
+        case MiniButtonVariant.primary:
+        case MiniButtonVariant.danger:
+          background = widget.colors.background.withValues(alpha: 0.85);
+          break;
+        case MiniButtonVariant.ghost:
+          background = theme.colors.primary.withValues(alpha: 0.06);
+          break;
+      }
+    }
+
+    final Widget content = DefaultTextStyle(
+      style: theme.typography.body.copyWith(
+        color: widget.colors.foreground,
+        fontWeight: FontWeight.w500,
+      ),
+      child: Text(
+        widget.label,
+        textAlign: TextAlign.center,
+      ),
+    );
+
+    final Widget padded = Padding(
+      padding: theme.componentSizes.buttonPadding,
+      child: content,
+    );
+
+    final Widget decorated = AnimatedContainer(
+      duration: const Duration(milliseconds: 160),
+      decoration: BoxDecoration(
+        color: background,
+        borderRadius: theme.radius.medium,
+        border: Border.all(color: widget.colors.border),
+      ),
+      child: padded,
+    );
+
+    final Widget body = Opacity(
+      opacity: widget.disabled ? 0.5 : 1,
+      child: decorated,
+    );
+
+    if (widget.onPressed == null || widget.disabled) {
+      return body;
+    }
+
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTapDown: _handleTapDown,
+      onTapUp: (_) => _handleTapEnd(),
+      onTapCancel: _handleTapEnd,
+      onTap: widget.onPressed,
+      child: body,
+    );
   }
 }
 

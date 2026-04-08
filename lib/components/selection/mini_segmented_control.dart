@@ -79,28 +79,32 @@ class MiniSegmentedControl<T> extends BaseComponent {
       radius = BorderRadius.zero;
     }
 
+    final Widget label = MiniText(
+      segment.label,
+      style: theme.typography.small.copyWith(
+        color: textColor,
+      ),
+    );
+
+    final Widget content = Center(child: label);
+
+    final Widget segmentBody = Container(
+      decoration: BoxDecoration(
+        color: bgColor,
+        borderRadius: radius,
+      ),
+      padding: EdgeInsets.symmetric(
+        horizontal: theme.spacing.md,
+        vertical: theme.spacing.xs,
+      ),
+      child: content,
+    );
+
     return Expanded(
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: onChanged == null ? null : () => onChanged!(segment.value),
-        child: Container(
-          decoration: BoxDecoration(
-            color: bgColor,
-            borderRadius: radius,
-          ),
-          padding: EdgeInsets.symmetric(
-            horizontal: theme.spacing.md,
-            vertical: theme.spacing.xs,
-          ),
-          child: Center(
-            child: MiniText(
-              segment.label,
-              style: theme.typography.small.copyWith(
-                color: textColor,
-              ),
-            ),
-          ),
-        ),
+        child: segmentBody,
       ),
     );
   }

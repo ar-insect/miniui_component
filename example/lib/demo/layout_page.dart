@@ -102,9 +102,18 @@ class _MiniLayoutDemoPageState extends State<MiniLayoutDemoPage> {
       ),
       bottomBar: MiniTabBar(
         items: const <MiniTabItem>[
-          MiniTabItem(label: '首页'),
-          MiniTabItem(label: '消息'),
-          MiniTabItem(label: '我的'),
+          MiniTabItem(
+            label: '首页',
+            icon: _MiniNavIcon(type: _MiniNavIconType.home),
+          ),
+          MiniTabItem(
+            label: '消息',
+            icon: _MiniNavIcon(type: _MiniNavIconType.message),
+          ),
+          MiniTabItem(
+            label: '我的',
+            icon: _MiniNavIcon(type: _MiniNavIconType.profile),
+          ),
         ],
         currentIndex: _currentTab,
         onTap: (int index) {
@@ -117,3 +126,148 @@ class _MiniLayoutDemoPageState extends State<MiniLayoutDemoPage> {
   }
 }
 
+enum _MiniNavIconType { home, message, profile }
+
+class _MiniNavIcon extends StatelessWidget {
+  final _MiniNavIconType type;
+
+  const _MiniNavIcon({required this.type});
+
+  @override
+  Widget build(BuildContext context) {
+    final IconThemeData iconTheme = IconTheme.of(context);
+    final Color color = iconTheme.color ?? const Color(0xFF000000);
+    final double size = iconTheme.size ?? 24;
+
+    switch (type) {
+      case _MiniNavIconType.home:
+        return CustomPaint(
+          size: Size.square(size),
+          painter: _HomeIconPainter(color),
+        );
+      case _MiniNavIconType.message:
+        return CustomPaint(
+          size: Size.square(size),
+          painter: _MessageIconPainter(color),
+        );
+      case _MiniNavIconType.profile:
+        return CustomPaint(
+          size: Size.square(size),
+          painter: _ProfileIconPainter(color),
+        );
+    }
+  }
+}
+
+class _HomeIconPainter extends CustomPainter {
+  final Color color;
+
+  _HomeIconPainter(this.color);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Paint paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = size.width * 0.09
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round;
+
+    final Path path = Path();
+    final double w = size.width;
+    final double h = size.height;
+    path.moveTo(w * 0.18, h * 0.50);
+    path.lineTo(w * 0.50, h * 0.20);
+    path.lineTo(w * 0.82, h * 0.50);
+    path.lineTo(w * 0.82, h * 0.80);
+    path.lineTo(w * 0.18, h * 0.80);
+    path.close();
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant _HomeIconPainter oldDelegate) {
+    return oldDelegate.color != color;
+  }
+}
+
+class _MessageIconPainter extends CustomPainter {
+  final Color color;
+
+  _MessageIconPainter(this.color);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Paint paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = size.width * 0.09
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round;
+
+    final double w = size.width;
+    final double h = size.height;
+
+    final RRect bubble = RRect.fromLTRBR(
+      w * 0.15,
+      h * 0.20,
+      w * 0.85,
+      h * 0.70,
+      Radius.circular(w * 0.18),
+    );
+
+    canvas.drawRRect(bubble, paint);
+
+    final Path tail = Path();
+    tail.moveTo(w * 0.32, h * 0.70);
+    tail.lineTo(w * 0.42, h * 0.85);
+    tail.lineTo(w * 0.50, h * 0.70);
+    canvas.drawPath(tail, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant _MessageIconPainter oldDelegate) {
+    return oldDelegate.color != color;
+  }
+}
+
+class _ProfileIconPainter extends CustomPainter {
+  final Color color;
+
+  _ProfileIconPainter(this.color);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Paint paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = size.width * 0.09
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round;
+
+    final double w = size.width;
+    final double h = size.height;
+
+    final Offset headCenter = Offset(w * 0.50, h * 0.32);
+    final double headRadius = w * 0.18;
+    canvas.drawCircle(headCenter, headRadius, paint);
+
+    final Rect bodyRect = Rect.fromLTRB(
+      w * 0.20,
+      h * 0.52,
+      w * 0.80,
+      h * 0.85,
+    );
+    final RRect body = RRect.fromRectAndRadius(
+      bodyRect,
+      Radius.circular(w * 0.20),
+    );
+    canvas.drawRRect(body, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant _ProfileIconPainter oldDelegate) {
+    return oldDelegate.color != color;
+  }
+}

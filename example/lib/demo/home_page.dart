@@ -123,10 +123,46 @@ class _MiniHomePageState extends State<MiniHomePage> {
               MiniTag(label: '状态'),
             ],
           ),
-          const SizedBox(height: 12),
-          const Align(
-            alignment: Alignment.centerLeft,
-            child: MiniLoading(),
+          SizedBox(height: theme.spacing.sm),
+          MiniCarousel(
+            height: 140,
+            items: <Widget>[
+              MiniImage(
+                image: const NetworkImage(
+                  'https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg',
+                ),
+                fit: BoxFit.cover,
+                borderRadius: theme.radius.medium,
+              ),
+              MiniImage(
+                image: const NetworkImage(
+                  'https://images.pexels.com/photos/210186/pexels-photo-210186.jpeg',
+                ),
+                fit: BoxFit.cover,
+                borderRadius: theme.radius.medium,
+              ),
+              MiniImage(
+                image: const NetworkImage(
+                  'https://images.pexels.com/photos/462353/pexels-photo-462353.jpeg',
+                ),
+                fit: BoxFit.cover,
+                borderRadius: theme.radius.medium,
+              ),
+            ],
+          ),
+          SizedBox(height: theme.spacing.sm),
+          MiniLiquidGlass(
+            child: Padding(
+              padding: EdgeInsets.all(theme.spacing.md),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const <Widget>[
+                  MiniLoading(),
+                  SizedBox(width: 8),
+                  MiniText('Liquid glass'),
+                ],
+              ),
+            ),
           ),
         ],
       ),
@@ -227,73 +263,59 @@ class _MiniHomePageState extends State<MiniHomePage> {
             },
           ),
           const MiniDivider(),
-          const SizedBox(height: 8),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: MiniButton(
-              label: '显示 Toast',
-              variant: MiniButtonVariant.ghost,
-              onPressed: () {
-                MiniToast.show(context, '这是一条 MiniToast 提示');
-              },
-            ),
+          MiniListItem(
+            title: '显示 Toast',
+            subtitle: '在底部弹出一条轻量提示',
+            showArrow: true,
+            onTap: () {
+              MiniToast.show(context, '这是一条 MiniToast 提示');
+            },
           ),
-          const SizedBox(height: 8),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: MiniButton(
-              label: '查看列表页示例',
-              variant: MiniButtonVariant.ghost,
-              onPressed: () {
-                Navigator.of(context).pushNamed(MiniListDemoPage.routeName);
-              },
-            ),
+          const MiniDivider(),
+          MiniListItem(
+            title: '查看列表页示例',
+            subtitle: '跳转到完整列表页 Demo',
+            showArrow: true,
+            onTap: () {
+              Navigator.of(context).pushNamed(MiniListDemoPage.routeName);
+            },
           ),
-          const SizedBox(height: 8),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: MiniButton(
-              label: '查看主题 Tokens 示例',
-              variant: MiniButtonVariant.ghost,
-              onPressed: () {
-                Navigator.of(context).pushNamed(MiniTokensPage.routeName);
-              },
-            ),
+          const MiniDivider(),
+          MiniListItem(
+            title: '查看主题 Tokens 示例',
+            subtitle: '查看颜色/间距/圆角/排版 Token',
+            showArrow: true,
+            onTap: () {
+              Navigator.of(context).pushNamed(MiniTokensPage.routeName);
+            },
           ),
-          const SizedBox(height: 8),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: MiniButton(
-              label: '查看布局与导航示例',
-              variant: MiniButtonVariant.ghost,
-              onPressed: () {
-                Navigator.of(context).pushNamed(MiniLayoutDemoPage.routeName);
-              },
-            ),
+          const MiniDivider(),
+          MiniListItem(
+            title: '查看布局与导航示例',
+            subtitle: '演示 AppBar / TabBar / PageScaffold',
+            showArrow: true,
+            onTap: () {
+              Navigator.of(context).pushNamed(MiniLayoutDemoPage.routeName);
+            },
           ),
-          const SizedBox(height: 8),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: MiniButton(
-              label: '查看反馈组件示例',
-              variant: MiniButtonVariant.ghost,
-              onPressed: () {
-                Navigator.of(context)
-                    .pushNamed(MiniFeedbackDemoPage.routeName);
-              },
-            ),
+          const MiniDivider(),
+          MiniListItem(
+            title: '查看反馈组件示例',
+            subtitle: 'Dialog / ActionSheet / Snackbar / Loading',
+            showArrow: true,
+            onTap: () {
+              Navigator.of(context)
+                  .pushNamed(MiniFeedbackDemoPage.routeName);
+            },
           ),
-          const SizedBox(height: 8),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: MiniButton(
-              label: '查看自定义外观示例',
-              variant: MiniButtonVariant.ghost,
-              onPressed: () {
-                Navigator.of(context)
-                    .pushNamed(MiniCustomTokensPage.routeName);
-              },
-            ),
+          const MiniDivider(),
+          MiniListItem(
+            title: '查看自定义外观示例',
+            subtitle: '动态调整圆角 / 字体 / 间距',
+            showArrow: true,
+            onTap: () {
+              Navigator.of(context).pushNamed(MiniCustomTokensPage.routeName);
+            },
           ),
         ],
       ),

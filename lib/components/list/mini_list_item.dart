@@ -9,6 +9,7 @@ class MiniListItem extends BaseComponent {
   final Widget? trailing;
   final VoidCallback? onTap;
   final EdgeInsetsGeometry? padding;
+  final bool showArrow;
 
   const MiniListItem({
     super.key,
@@ -18,20 +19,83 @@ class MiniListItem extends BaseComponent {
     this.trailing,
     this.onTap,
     this.padding,
+    this.showArrow = false,
   });
 
   @override
   Widget build(BuildContext context) {
     final MiniTheme theme = themeOf(context);
+    return _MiniListItemBody(
+      theme: theme,
+      leading: leading,
+      title: title,
+      subtitle: subtitle,
+      trailing: trailing,
+      onTap: onTap,
+      padding: padding,
+      showArrow: showArrow,
+    );
+  }
+}
 
-    final EdgeInsetsGeometry resolvedPadding = padding ??
+class _MiniListItemBody extends StatefulWidget {
+  final MiniTheme theme;
+  final Widget? leading;
+  final String title;
+  final String? subtitle;
+  final Widget? trailing;
+  final VoidCallback? onTap;
+  final EdgeInsetsGeometry? padding;
+  final bool showArrow;
+
+  const _MiniListItemBody({
+    required this.theme,
+    this.leading,
+    required this.title,
+    this.subtitle,
+    this.trailing,
+    this.onTap,
+    this.padding,
+    required this.showArrow,
+  });
+
+  @override
+  State<_MiniListItemBody> createState() => _MiniListItemBodyState();
+}
+
+class _MiniListItemBodyState extends State<_MiniListItemBody> {
+  bool _pressed = false;
+
+  void _handleTapDown(TapDownDetails details) {
+    if (widget.onTap == null) {
+      return;
+    }
+    setState(() {
+      _pressed = true;
+    });
+  }
+
+  void _handleTapEnd() {
+    if (widget.onTap == null) {
+      return;
+    }
+    setState(() {
+      _pressed = false;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final MiniTheme theme = widget.theme;
+
+    final EdgeInsetsGeometry resolvedPadding = widget.padding ??
         EdgeInsets.symmetric(
           horizontal: theme.spacing.lg,
           vertical: theme.spacing.md,
         );
 
     final Widget titleWidget = Text(
-      title,
+      widget.title,
       style: theme.typography.body.copyWith(
         color: theme.colors.foreground,
       ),
@@ -39,10 +103,10 @@ class MiniListItem extends BaseComponent {
       overflow: TextOverflow.ellipsis,
     );
 
-    final Widget? subtitleWidget = subtitle == null
+    final Widget? subtitleWidget = widget.subtitle == null
         ? null
         : Text(
-            subtitle!,
+            widget.subtitle!,
             style: theme.typography.small.copyWith(
               color: theme.colors.foreground.withValues(alpha: 0.6),
             ),
@@ -52,35 +116,51 @@ class MiniListItem extends BaseComponent {
 
     final List<Widget> rowChildren = <Widget>[];
 
-    if (leading != null) {
+    if (widget.leading != null) {
       rowChildren.add(Padding(
         padding: EdgeInsets.only(right: theme.spacing.md),
-        child: leading!,
+        child: widget.leading!,
       ));
     }
 
-    rowChildren.add(Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          titleWidget,
-          if (subtitleWidget != null) ...<Widget>[
-            SizedBox(height: theme.spacing.xs),
-            subtitleWidget,
+    rowChildren.add(
+      Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            titleWidget,
+            if (subtitleWidget != null) ...<Widget>[
+              SizedBox(height: theme.spacing.xs),
+              subtitleWidget,
+            ],
           ],
-        ],
+        ),
       ),
-    ));
+    );
 
-    if (trailing != null) {
+    if (widget.trailing != null) {
       rowChildren.add(Padding(
         padding: EdgeInsets.only(left: theme.spacing.md),
         child: Align(
           alignment: Alignment.centerRight,
-          child: trailing!,
+          child: widget.trailing!,
         ),
       ));
+    }
+
+    if (widget.showArrow) {
+      rowChildren.add(
+        Padding(
+          padding: EdgeInsets.only(left: theme.spacing.md),
+          child: Text(
+            '›',
+            style: theme.typography.body.copyWith(
+              color: theme.colors.foreground.withValues(alpha: 0.25),
+            ),
+          ),
+        ),
+      );
     }
 
     final Widget content = Padding(
@@ -91,15 +171,27 @@ class MiniListItem extends BaseComponent {
       ),
     );
 
-    if (onTap == null) {
-      return content;
+    final Color baseColor = theme.colors.background;
+    final Color pressedColor =
+        theme.colors.foreground.withValues(alpha: 0.04);
+
+    final Widget container = AnimatedContainer(
+      duration: const Duration(milliseconds: 100),
+      color: _pressed ? pressedColor : baseColor,
+      child: content,
+    );
+
+    if (widget.onTap == null) {
+      return container;
     }
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: onTap,
-      child: content,
+      onTapDown: _handleTapDown,
+      onTapUp: (_) => _handleTapEnd(),
+      onTapCancel: _handleTapEnd,
+      onTap: widget.onTap,
+      child: container,
     );
   }
 }
-

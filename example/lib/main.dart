@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:miniui/miniui.dart';
 import 'demo/custom_tokens_page.dart';
@@ -88,11 +90,47 @@ class _MiniUiAppState extends State<MiniUiApp> {
                   controller: widget.controller,
                 );
             }
+            if (defaultTargetPlatform == TargetPlatform.iOS) {
+              return CupertinoPageRoute<void>(
+                settings: settings,
+                builder: (BuildContext context) => page,
+              );
+            }
+
             return PageRouteBuilder<void>(
               settings: settings,
-              pageBuilder: (BuildContext context, Animation<double> animation,
-                  Animation<double> secondaryAnimation) {
+              pageBuilder: (
+                BuildContext context,
+                Animation<double> animation,
+                Animation<double> secondaryAnimation,
+              ) {
                 return page;
+              },
+              transitionsBuilder: (
+                BuildContext context,
+                Animation<double> animation,
+                Animation<double> secondaryAnimation,
+                Widget child,
+              ) {
+                final Size size = MediaQuery.of(context).size;
+
+                final Animation<double> curvedAnimation = CurvedAnimation(
+                  parent: animation,
+                  curve: Curves.easeOutCubic,
+                  reverseCurve: Curves.easeInCubic,
+                );
+
+                final Tween<Offset> slideTween = Tween<Offset>(
+                  begin: const Offset(1.0, 0.0),
+                  end: Offset.zero,
+                );
+
+                final Offset offset = slideTween.evaluate(curvedAnimation);
+
+                return Transform.translate(
+                  offset: Offset(offset.dx * size.width, 0),
+                  child: child,
+                );
               },
             );
           },

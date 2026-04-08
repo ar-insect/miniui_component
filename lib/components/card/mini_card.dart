@@ -29,23 +29,39 @@ class MiniCard extends BaseComponent {
     return Padding(
       padding: margin,
       child: isGlass
-          ? MiniGlassSurface(
-              theme: theme,
-              borderRadius: theme.radius.medium,
-              backgroundColor:
-                  theme.colors.background.withValues(alpha: 0.28),
-              border: Border.all(
-                color: theme.colors.foreground.withValues(alpha: 0.10),
+          ? DecoratedBox(
+              decoration: BoxDecoration(
+                borderRadius: theme.radius.medium,
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                    color:
+                        theme.colors.foreground.withValues(alpha: 0.08),
+                    blurRadius: 16,
+                    offset: const Offset(0, 8),
+                  ),
+                ],
               ),
-              child: content,
+              child: MiniGlassSurface(
+                theme: theme,
+                borderRadius: theme.radius.medium,
+                backgroundColor:
+                    theme.colors.background.withValues(alpha: 0.28),
+                border: null,
+                child: content,
+              ),
             )
           : DecoratedBox(
               decoration: BoxDecoration(
                 color: theme.colors.background,
                 borderRadius: theme.radius.medium,
-                border: Border.all(
-                  color: theme.colors.foreground.withValues(alpha: 0.08),
-                ),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                    color:
+                        theme.colors.foreground.withValues(alpha: 0.06),
+                    blurRadius: 14,
+                    offset: const Offset(0, 6),
+                  ),
+                ],
               ),
               child: content,
             ),

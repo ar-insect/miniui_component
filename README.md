@@ -1,47 +1,50 @@
 # MiniUi
 
-一个基于 Flutter `widgets` 层的超轻量 UI 组件库，用于探索：
+A lightweight Flutter UI component library built on the `widgets` layer.
 
-- 完全不依赖 `material.dart`
-- 多主题（浅色 / 深色 / 蓝色 / 红色 / 节日…）统一管理
-- 可作为 SDK / 组件库跨项目复用
-- 纯 Token 驱动的设计系统（Color / Spacing / Radius / Typography / ComponentSize）
+MiniUi explores:
 
-当前仓库同时包含组件实现与可视化 Demo（通过 `example/` 示例应用运行）。
+- A UI stack that **does not depend on `material.dart`**
+- Centralized multi-theme management (light / dark / blue / red / festival, etc.)
+- Reuse as an SDK / component library across projects
+- A pure token‑driven design system  
+  (Color / Spacing / Radius / Typography / ComponentSize)
 
----
-
-## 功能特性概览
-
-- 无 Material 依赖  
-  - 所有入口基于 `WidgetsApp` + `Directionality`  
-  - 组件只依赖 `package:flutter/widgets.dart`
-
-- 多主题 + Token 体系  
-  - `MiniTheme`：聚合 Color / Spacing / Radius / Typography 多类 Token  
-  - 内置主题：`light / dark / blue / red / festival`  
-  - `MiniThemeController`：全局主题状态管理，支持热切换
-
-- 纯组件化封装  
-  - 基础展示：`MiniText / MiniCard / MiniImage / MiniTag / MiniEmpty / MiniLoading`  
-  - 交互输入：`MiniButton / MiniInput`  
-- 表单控件：`MiniCheckbox / MiniSwitch / MiniStepper / MiniSearchBar`  
-  - 列表骨架：`MiniDivider / MiniListItem`  
-  - 导航与布局：`MiniAppBar / MiniTabBar / MiniPageScaffold`  
-  - 反馈：`MiniToast / MiniDialog / MiniActionSheet / MiniSnackbar / MiniLoadingOverlay`
-
-- Demo 页面  
-  - 首页：主题切换 + 基础组件 + 表单示例 + 列表 & Toast 示例  
-  - 列表页：全屏 `MiniListItem` 列表骨架  
-  - Token 页：颜色 / 间距 / 圆角 / 字体 Token 可视化
+This repository contains both the component implementations and a visual demo app (under `example/`).
 
 ---
 
-## 快速上手
+## Features
 
-### 依赖声明（假设已发布到 pub.dev）
+- **No Material dependency**
+  - Entry based on `WidgetsApp` + `Directionality`
+  - Components only import `package:flutter/widgets.dart`
 
-在你的宿主应用 `pubspec.yaml` 中添加：
+- **Theme + token system**
+  - `MiniTheme`: aggregates color / spacing / radius / typography / component‑size tokens
+  - Built‑in themes: `light / dark / blue / red / festival`
+  - `MiniThemeController`: global theme state with hot switching
+
+- **Pure component abstraction**
+  - Display: `MiniText / MiniCard / MiniImage / MiniTag / MiniEmpty / MiniLoading`
+  - Input: `MiniButton / MiniInput`
+  - Form: `MiniCheckbox / MiniSwitch / MiniStepper / MiniSearchBar`
+  - List: `MiniDivider / MiniListItem`
+  - Navigation & layout: `MiniAppBar / MiniTabBar / MiniPageScaffold`
+  - Feedback: `MiniToast / MiniDialog / MiniActionSheet / MiniSnackbar / MiniLoadingOverlay`
+
+- **Demo pages**
+  - Home: theme switching + basic components + form examples + list & toast examples
+  - List: full‑screen `MiniListItem` list skeleton
+  - Tokens: visualized colors / spacing / radius / typography tokens
+
+---
+
+## Quick Start
+
+### Dependency (assuming published to pub.dev)
+
+Add MiniUi to your host app `pubspec.yaml`:
 
 ```yaml
 dependencies:
@@ -51,7 +54,7 @@ dependencies:
   miniui: ^1.0.0
 ```
 
-### 最小使用示例（不依赖 `material.dart`）
+### Minimal example (no `material.dart`)
 
 ```dart
 import 'package:flutter/widgets.dart';
@@ -80,17 +83,17 @@ void main() {
 }
 ```
 
-上面这段代码完成了：
+This snippet shows:
 
-- 使用 `MiniThemeController` 管理当前主题；
-- 通过 `MiniThemeProvider` 注入主题；
-- 使用 `MiniButton` 渲染一个按钮。
+- Using `MiniThemeController` to manage the current theme
+- Injecting the theme via `MiniThemeProvider`
+- Rendering a button via `MiniButton`
 
-更完整的用法可以参考下文「在其他项目中作为 SDK 使用」一节，以及 `example/` 目录中的示例应用。
+For more complete usage, see the “Use MiniUi as SDK in another project” section below and the examples in `example/`.
 
 ---
 
-## 项目结构（核心部分）
+## Project Structure (core)
 
 ```text
 lib/
@@ -98,9 +101,9 @@ lib/
     base/
       base_component.dart   # MiniThemeController / MiniThemeProvider / BaseComponent
     painters/
-      loading_painter.dart  # 加载动效画笔
+      loading_painter.dart  # Custom painter for loading
     utils/
-      tokens.dart           # MiniTheme + Color/Spacing/Radius/Typography Tokens
+      tokens.dart           # MiniTheme + Color/Spacing/Radius/Typography tokens
 
   components/
     button/      mini_button.dart
@@ -138,38 +141,38 @@ lib/
     selection/
       mini_segmented_control.dart
 
-  miniui.dart         # 对外统一导出入口（模拟 SDK 用法）
+  miniui.dart         # Public export entry (SDK-style)
 
 example/
   lib/
-    main.dart         # 示例应用入口（完整 Demo：home / list / tokens / layout / feedback）
+    main.dart         # Example app entry (home / list / tokens / layout / feedback)
     demo/
-      home_page.dart    # 首页 Demo
-      list_page.dart    # 列表页 Demo
-      tokens_page.dart  # Theme Tokens 展示页
-      layout_page.dart  # 布局与导航示例
-      feedback_page.dart# 反馈组件示例
+      home_page.dart    # Home demo
+      list_page.dart    # List demo
+      tokens_page.dart  # Theme tokens demo
+      layout_page.dart  # Layout & navigation demo
+      feedback_page.dart# Feedback components demo
 
-  example.dart       # 精简版使用示例（可选）
+  example.dart       # Minimal usage example (optional)
 ```
 
 ---
 
-## 主题与 Token 体系
+## Theme & Token System
 
-### MiniTheme 与 Tokens
+### MiniTheme & tokens
 
-主题定义集中在 [`lib/core/utils/tokens.dart`](lib/core/utils/tokens.dart)：
+Theme definitions are centralized in [`lib/core/utils/tokens.dart`](lib/core/utils/tokens.dart):
 
 - `MiniColorTokens`
 - `MiniSpacingTokens`
 - `MiniRadiusTokens`
 - `MiniTypographyTokens`
-- `MiniComponentSizeTokens`（组件尺寸 Token：按钮 / 输入框大小等）
-- `MiniTheme`（聚合以上 Tokens）
-- `MiniThemes`（内置多套主题）
+- `MiniComponentSizeTokens` (component sizing tokens: button / input)
+- `MiniTheme` (aggregates all tokens above)
+- `MiniThemes` (built‑in themes)
 
-示例（简化）：
+Simplified definition:
 
 ```dart
 class MiniTheme {
@@ -183,17 +186,17 @@ class MiniTheme {
 }
 ```
 
-组件内部统一从 `MiniTheme` 获取设计值，例如：
+Components consistently read design values from `MiniTheme`, for example:
 
-- 间距：`theme.spacing.md`
-- 圆角：`theme.radius.medium`
-- 字体：`theme.typography.body`
-- 颜色：`theme.colors.primary / background / foreground ...`
-- 组件尺寸：`theme.componentSizes.buttonPadding / inputPadding`
+- Spacing: `theme.spacing.md`
+- Radius: `theme.radius.medium`
+- Typography: `theme.typography.body`
+- Colors: `theme.colors.primary / background / foreground ...`
+- Component sizes: `theme.componentSizes.buttonPadding / inputPadding`
 
-### 组件尺寸 Token：MiniComponentSizeTokens
+### Component size tokens: MiniComponentSizeTokens
 
-组件大小（按钮高度、输入框高度等）统一由 `MiniComponentSizeTokens` 控制，而不是写死在组件内部：
+Component sizes (button height, input height, etc.) are controlled by `MiniComponentSizeTokens` instead of being hard‑coded:
 
 ```dart
 class MiniComponentSizeTokens {
@@ -202,75 +205,75 @@ class MiniComponentSizeTokens {
 }
 ```
 
-内置主题已经为你填好了默认值，对应当前视觉（不会改变现有效果）：
+Built‑in themes already provide sensible defaults (matching current visuals):
 
-- 默认主题族（`light / dark / blue / red / festival`）
+- Default family (`light / dark / blue / red / festival`)
   - `buttonPadding = EdgeInsets.symmetric(horizontal: 20, vertical: 10)`
   - `inputPadding  = EdgeInsets.symmetric(horizontal: 14, vertical: 10)`
-- `compact` 主题
+- `compact`
   - `buttonPadding = EdgeInsets.symmetric(horizontal: 14, vertical: 6)`
   - `inputPadding  = EdgeInsets.symmetric(horizontal: 10, vertical: 6)`
-- `rounded` 主题
+- `rounded`
   - `buttonPadding = EdgeInsets.symmetric(horizontal: 24, vertical: 12)`
   - `inputPadding  = EdgeInsets.symmetric(horizontal: 16, vertical: 12)`
 
-对应组件内部也已经切换为读 Token：
+Components now read these tokens:
 
-- `MiniButton` 使用 `theme.componentSizes.buttonPadding` 作为 padding  
-- `MiniInput` 使用 `theme.componentSizes.inputPadding` 作为 padding（各平台分支只负责外观样式）
+- `MiniButton` uses `theme.componentSizes.buttonPadding`
+- `MiniInput` uses `theme.componentSizes.inputPadding`
 
-你可以通过两种方式修改组件大小：
+You can change sizes in two ways:
 
-1. 自定义主题时直接指定组件尺寸 Token：
+1. Provide explicit component‑size tokens in a custom theme:
 
-```dart
-const MiniTheme brandTheme = MiniTheme(
-  name: 'brand',
-  brightness: Brightness.light,
-  colors: MiniColorTokens(
-    primary: Color(0xFF6200EE),
-    background: Color(0xFFF3EFFE),
-    foreground: Color(0xFF1D1B20),
-    accent: Color(0xFF03DAC6),
-    danger: Color(0xFFB00020),
-  ),
-  spacing: MiniThemes.defaultSpacing,
-  radius: MiniThemes.defaultRadius,
-  typography: MiniThemes.defaultTypography,
-  componentSizes: MiniComponentSizeTokens(
-    buttonPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-    inputPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-  ),
-);
-```
+   ```dart
+   const MiniTheme brandTheme = MiniTheme(
+     name: 'brand',
+     brightness: Brightness.light,
+     colors: MiniColorTokens(
+       primary: Color(0xFF6200EE),
+       background: Color(0xFFF3EFFE),
+       foreground: Color(0xFF1D1B20),
+       accent: Color(0xFF03DAC6),
+       danger: Color(0xFFB00020),
+     ),
+     spacing: MiniThemes.defaultSpacing,
+     radius: MiniThemes.defaultRadius,
+     typography: MiniThemes.defaultTypography,
+     componentSizes: MiniComponentSizeTokens(
+       buttonPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+       inputPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+     ),
+   );
+   ```
 
-2. 运行时通过 `MiniThemeController.updateTokens` 动态调整：
+2. Adjust tokens at runtime via `MiniThemeController.updateTokens`:
 
-```dart
-final controller = MiniThemeController(initialTheme: MiniThemes.light);
+   ```dart
+   final controller = MiniThemeController(initialTheme: MiniThemes.light);
 
-void enlargeButtons() {
-  final current = controller.theme.componentSizes;
-  controller.updateTokens(
-    componentSizes: current.copyWith(
-      buttonPadding: current.buttonPadding +
-          const EdgeInsets.symmetric(vertical: 4),
-    ),
-  );
-}
-```
+   void enlargeButtons() {
+     final current = controller.theme.componentSizes;
+     controller.updateTokens(
+       componentSizes: current.copyWith(
+         buttonPadding: current.buttonPadding +
+             const EdgeInsets.symmetric(vertical: 4),
+       ),
+     );
+   }
+   ```
 
-这样一来，后续调整组件尺寸只需要改 Token，而无需修改 `MiniButton` / `MiniInput` 等组件实现。
+This lets you tune component sizes by editing tokens instead of changing `MiniButton` / `MiniInput` implementations.
 
-### 主题控制与注入
+### Theme control & injection
 
-[`lib/core/base/base_component.dart`](lib/core/base/base_component.dart) 提供：
+[`lib/core/base/base_component.dart`](lib/core/base/base_component.dart) provides:
 
-- `MiniThemeController`：可热切换主题（`setTheme` / `setThemeByName`）
-- `MiniThemeProvider`：`InheritedWidget` 注入 `MiniTheme`
-- `BaseComponent`：所有组件统一继承，可直接通过 `themeOf(context)` 拿到当前主题
+- `MiniThemeController`: hot‑switch themes (`setTheme` / `setThemeByName`)
+- `MiniThemeProvider`: `InheritedWidget` that injects `MiniTheme`
+- `BaseComponent`: base class providing `themeOf(context)` for components
 
-使用方式（在 app 根部）：
+Usage at app root:
 
 ```dart
 final controller = MiniThemeController(initialTheme: MiniThemes.light);
@@ -286,15 +289,14 @@ WidgetsApp(
 );
 ```
 
-### 自定义皮肤 / 自定义主题 Token 示例
+### Custom brand skins / custom theme tokens
 
-在内置 `light / dark / blue / red / festival` 之外，你可以基于 Token 定义一套自己的品牌皮肤，例如：
+Besides built‑in `light / dark / blue / red / festival`, you can define your own branded theme:
 
 ```dart
 import 'package:flutter/widgets.dart';
 import 'package:miniui/miniui.dart';
 
-// 定义一套自定义主题 Token
 const MiniTheme brandTheme = MiniTheme(
   name: 'brand',
   brightness: Brightness.light,
@@ -311,7 +313,6 @@ const MiniTheme brandTheme = MiniTheme(
 );
 
 void main() {
-  // 使用自定义主题作为初始皮肤，并将其加入可选皮肤列表
   final controller = MiniThemeController(
     initialTheme: brandTheme,
     availableThemes: <MiniTheme>[
@@ -324,20 +325,19 @@ void main() {
 }
 ```
 
-这样一来：
+With this:
 
-- 组件内部会自动读取 `brandTheme` 中的颜色 / 间距 / 圆角 / 排版 Token；
-- Demo 或宿主应用中可以通过 `MiniThemeController` 在内置主题和自定义皮肤之间切换；
-- 你也可以按同样方式定义多套品牌皮肤，再统一放入 `availableThemes` 中管理。
+- Components automatically read tokens from `brandTheme`
+- You can switch between built‑in themes and custom skins via `MiniThemeController`
+- Multiple branded skins can be added to `availableThemes`
 
-### 在不改库 API 的前提下扩展更多间距 Token（如 xxs / xxl）
+### Extending spacing tokens (xxs / xxl) without changing library API
 
-如果业务侧需要比 `xs ~ xl` 更细/更大的间距，而又不想修改 `MiniSpacingTokens` 的定义，可以在宿主项目里包一层自己的扩展类型，例如：
+If your app needs finer spacing than `xs ~ xl` but you do not want to modify `MiniSpacingTokens`, you can wrap it on the app side:
 
 ```dart
 import 'package:miniui/miniui.dart';
 
-/// 业务侧的扩展 Spacing，额外挂载 xxs / xxl。
 class ExtendedSpacing {
   final MiniSpacingTokens core;
   final double xxs;
@@ -350,7 +350,7 @@ class ExtendedSpacing {
   });
 }
 
-// 以 MiniUi 的默认间距为基础，扩展一套 xxs / xxl
+// Extend MiniUi’s default spacing with xxs / xxl
 const ExtendedSpacing kExtendedSpacing = ExtendedSpacing(
   core: MiniThemes.defaultSpacing,
   xxs: 2,
@@ -358,33 +358,29 @@ const ExtendedSpacing kExtendedSpacing = ExtendedSpacing(
 );
 ```
 
-在使用时：
+Usage:
 
-- MiniUi 组件内部仍然只依赖 `theme.spacing.xs ~ xl`，保持库 API 稳定；
-- 你的业务组件如果需要更小/更大的间距，可以写成：
+```dart
+Padding(
+  padding: EdgeInsets.symmetric(
+    horizontal: kExtendedSpacing.xxl,
+    vertical: kExtendedSpacing.core.sm,
+  ),
+  child: ...,
+)
+```
 
-  ```dart
-  Padding(
-    padding: EdgeInsets.symmetric(
-      horizontal: kExtendedSpacing.xxl,
-      vertical: kExtendedSpacing.core.sm,
-    ),
-    child: ...
-  )
-  ```
-
-这样既不会破坏 MiniUi 的 Token 结构，又可以在业务侧灵活扩展更多「自定义尺寸」。
+MiniUi components still rely only on `theme.spacing.xs ~ xl`, keeping the library API stable, while your own widgets can opt into `xxs / xxl`.
 
 ---
 
-## 进阶：Overlay / Size Preset Helper
+## Advanced: Overlay & Size Preset Helpers
 
-### Overlay Helper：miniShowOverlayEntry
+### Overlay helper: `miniShowOverlayEntry`
 
-Toast / Snackbar 等临时浮层需要统一的 OverlayEntry 管理逻辑。核心层提供了一个简单的 helper：
+Toast / snackbar‑style overlays share a unified helper in the core layer:
 
 ```dart
-// lib/core/base/base_component.dart
 Future<void> miniShowOverlayEntry({
   required OverlayState overlay,
   required Duration duration,
@@ -401,7 +397,7 @@ Future<void> miniShowOverlayEntry({
 }
 ```
 
-`MiniToast.show` 与 `MiniSnackbar.show` 都已经改为复用这个 helper。你在业务侧做自己的浮层时也可以直接使用：
+`MiniToast.show` and `MiniSnackbar.show` both reuse this. You can use it for custom overlays as well:
 
 ```dart
 Future<void> showCustomBanner(BuildContext context, String text) {
@@ -427,9 +423,9 @@ Future<void> showCustomBanner(BuildContext context, String text) {
 }
 ```
 
-### 尺寸 Preset：MiniSizePreset（组合 Spacing/Radius/Typography/ComponentSize）
+### Size presets: `MiniSizePreset` (spacing / radius / typography / component sizes)
 
-在 `tokens.dart` 中，尺寸相关的 Token（`MiniSpacingTokens` / `MiniRadiusTokens` / `MiniTypographyTokens` / `MiniComponentSizeTokens`）可以通过 `MiniSizePreset` 这个组合类型统一描述：
+Size‑related tokens can be grouped as a `MiniSizePreset`:
 
 ```dart
 class MiniSizePreset {
@@ -447,7 +443,7 @@ class MiniSizePreset {
 }
 ```
 
-`MiniThemes` 中的 `default/compact/rounded` 主题在数值上分别对应一套 size preset，你可以在宿主侧或未来扩展中用它来描述自己的尺寸组合，例如：
+`MiniThemes` internally maps `default / compact / rounded` themes to different presets. You can define your own:
 
 ```dart
 const MiniSizePreset densePreset = MiniSizePreset(
@@ -471,7 +467,7 @@ const MiniSizePreset densePreset = MiniSizePreset(
 );
 ```
 
-然后在自定义主题中统一使用这套 preset 的字段：
+Then reuse it in a custom theme:
 
 ```dart
 const MiniTheme denseTheme = MiniTheme(
@@ -491,24 +487,24 @@ const MiniTheme denseTheme = MiniTheme(
 );
 ```
 
-这样可以把「尺寸风格」和「颜色风格」解耦：颜色可以随品牌切换，尺寸可以根据平台/用户偏好选择不同 preset，组合成最终的 `MiniTheme`。
+This decouples **size style** from **color style**: brand colors can change independently from compact/comfortable size presets.
 
 ---
 
-## 组件一览
+## Components Overview
 
-所有组件通过 [`lib/miniui.dart`](lib/miniui.dart) 对外导出：
+All components are exported via [`lib/miniui.dart`](lib/miniui.dart):
 
 ```dart
 import 'package:miniui/miniui.dart';
 ```
 
-- 核心
+- Core
   - `MiniTheme` / `MiniThemes`
   - `MiniThemeController` / `MiniThemeProvider`
   - `BaseComponent`
 
-- 展示类
+- Display
   - `MiniText`
   - `MiniCard`
   - `MiniImage`
@@ -516,29 +512,29 @@ import 'package:miniui/miniui.dart';
   - `MiniEmpty`
   - `MiniLoading`
 
-- 交互 / 表单
-  - `MiniButton`（primary / ghost / danger）
+- Input / form
+  - `MiniButton` (primary / ghost / danger)
   - `MiniInput`
   - `MiniCheckbox`
   - `MiniSwitch`
   - `MiniStepper`
   - `MiniSearchBar`
 
-- 列表
+- List
   - `MiniDivider`
   - `MiniListItem`
 
-- 数据展示
+- Data display
   - `MiniAvatar`
   - `MiniBadge`
   - `MiniSkeleton`
 
-- 导航与布局
+- Navigation & layout
   - `MiniAppBar`
   - `MiniTabBar`
   - `MiniPageScaffold`
 
-- 反馈
+- Feedback
   - `MiniToast.show(context, message)`
   - `MiniDialog`
   - `MiniActionSheet`
@@ -547,11 +543,9 @@ import 'package:miniui/miniui.dart';
 
 ---
 
-## Demo 页面说明
+## Demo Pages
 
-### 路由结构
-
-[`example/lib/main.dart`](example/lib/main.dart) 使用 `WidgetsApp.onGenerateRoute` 管理页面：
+[`example/lib/main.dart`](example/lib/main.dart) wires up the demo routes:
 
 - `/` → `MiniHomePage`
 - `/list-demo` → `MiniListDemoPage`
@@ -559,106 +553,88 @@ import 'package:miniui/miniui.dart';
 - `/layout-demo` → `MiniLayoutDemoPage`
 - `/feedback-demo` → `MiniFeedbackDemoPage`
 
-### MiniHomePage
+Key pages:
 
-入口文件：[`example/lib/demo/home_page.dart`](example/lib/demo/home_page.dart)
+- **MiniHomePage** (`example/lib/demo/home_page.dart`)
+  - Theme card (switch themes: light / dark / blue / red / festival)
+  - Basic components: input / button / tag / loading
+  - Form: `MiniCheckbox + MiniSwitch`
+  - List & toast: `MiniListItem + MiniDivider`, `MiniToast.show` on tap
+  - Buttons linking to List / Tokens / Layout / Feedback demos
 
-包含：
+- **MiniListDemoPage** (`example/lib/demo/list_page.dart`)
+  - Full `MiniListItem` list with dividers
+  - Top back area (‹) using `Navigator.pop`
+  - `MiniToast` on tap
 
-- 主题卡片：展示当前主题名称 + 主题切换按钮（light/dark/blue/red/festival）
-- 基础组件示例：输入框 / Button / Tag / Loading
-- 表单示例：`MiniCheckbox + MiniSwitch`
-- 列表与 Toast 示例：
-  - `MiniListItem + MiniDivider`
-  - 点击列表项或按钮时，通过 `MiniToast.show` 弹出提示
-  - 提供入口按钮跳转到「列表页示例」「主题 Tokens 示例」「布局与导航示例」「反馈组件示例」
+- **MiniTokensPage** (`example/lib/demo/tokens_page.dart`)
+  - Visual color tokens
+  - Spacing (xs–xl) comparison
+  - Radius variations
+  - Typography samples
 
-### MiniListDemoPage
+- **MiniLayoutDemoPage** (`example/lib/demo/layout_page.dart`)
+  - Combination of `MiniPageScaffold + MiniAppBar + MiniTabBar + MiniSegmentedControl`
 
-入口文件：[`example/lib/demo/list_page.dart`](example/lib/demo/list_page.dart)
-
-- 显示一组 `MiniListItem` + `MiniDivider` 构成的完整列表页骨架  
-- 顶部有返回区域（`‹ 返回`），点击 `Navigator.pop()` 回首页  
-- 点击任意列表项，底部弹出 `MiniToast` 提示
-
-### MiniTokensPage
-
-入口文件：[`example/lib/demo/tokens_page.dart`](example/lib/demo/tokens_page.dart)
-
-- Colors：展示当前主题的一组颜色 Token 色块  
-- Spacing：展示 xs–xl 对应的数值和高度对比  
-- Radius：展示 small / medium / large / pill 不同圆角盒子  
-- Typography：展示 heading / title / body / small 四种文字样式
-
-### MiniLayoutDemoPage
-
-入口文件：[`example/lib/demo/layout_page.dart`](example/lib/demo/layout_page.dart)
-
-- 演示 `MiniPageScaffold + MiniAppBar + MiniTabBar + MiniSegmentedControl` 的组合使用  
-- 顶部 SegmentedControl 切换 Segment，底部 TabBar 模拟主导航
-
-### MiniFeedbackDemoPage
-
-入口文件：[`example/lib/demo/feedback_page.dart`](example/lib/demo/feedback_page.dart)
-
-- `MiniDialog` / `MiniActionSheet` / `MiniSnackbar` / `MiniLoadingOverlay` 等反馈组件示例  
-- `MiniBadge` / `MiniAvatar` / `MiniSkeleton` 状态与占位骨架示例
+- **MiniFeedbackDemoPage** (`example/lib/demo/feedback_page.dart`)
+  - `MiniDialog / MiniActionSheet / MiniSnackbar / MiniLoadingOverlay`
+  - `MiniBadge / MiniAvatar / MiniSkeleton`
 
 ---
 
-## 开发与调试
+## Development & Debugging
 
-### 在本仓库中运行完整 Demo 应用
+### Run the demo app
 
-在项目根目录执行：
+At project root:
 
 ```bash
 flutter run -t example/lib/main.dart
 ```
 
-该命令会使用 `example/lib/main.dart` 作为入口，运行包含 `home / list / tokens / layout / feedback` 的完整示例应用。
+This uses `example/lib/main.dart` as entry and runs the full demo.
 
-如需以 Web 或特定设备运行，可以指定设备：
+To target a specific device:
 
 ```bash
-# Web（Chrome）
+# Web (Chrome)
 flutter run -t example/lib/main.dart -d chrome
 
-# iOS 模拟器
+# iOS simulator
 flutter run -t example/lib/main.dart -d ios
 
-# Android 模拟器
+# Android emulator / device
 flutter run -t example/lib/main.dart -d android
 ```
 
-前提：
+Prerequisites:
 
-- 已安装对应平台的开发环境（Chrome / Xcode / Android SDK 等）
-- Flutter 已启用 Web 时，需执行过：`flutter config --enable-web`
+- Platform SDKs installed (Chrome / Xcode / Android SDK, etc.)
+- For Web: `flutter config --enable-web`
 
 ---
 
-## 测试
+## Testing
 
-本仓库内置了一些最小化的测试示例，覆盖组件渲染与主题 Token 一致性：
+This repo includes minimal tests covering component behavior and token consistency:
 
-- 组件测试：`test/mini_button_test.dart`  
-  - 验证 `MiniButton` 能正确渲染文案并响应点击。
-- 主题 Token 测试：`test/mini_theme_tokens_test.dart`  
-  - 验证 `MiniThemes.light` 的间距从 `xs` 到 `xl` 递增。  
-  - 验证 `MiniThemes.light` 与 `MiniThemes.dark` 的亮度配置不同。
+- `test/mini_button_test.dart`  
+  - Verifies `MiniButton` renders its label and responds to taps.
+- `test/mini_theme_tokens_test.dart`  
+  - Verifies `MiniThemes.light.spacing` is strictly increasing from `xs` to `xl`.  
+  - Verifies `MiniThemes.light.brightness != MiniThemes.dark.brightness`.
 
-在项目根目录执行：
+Run tests at project root:
 
 ```bash
 flutter test
 ```
 
-即可运行全部测试用例。
+---
 
-## 在其他项目中作为 SDK 使用（示例）
+## Use MiniUi as SDK in Another Project
 
-假设本库作为 package 引入后，可以这样集成：
+Once MiniUi is added as a dependency, you can integrate it like this:
 
 ```dart
 import 'package:flutter/widgets.dart';
@@ -699,4 +675,4 @@ class MyHostApp extends StatelessWidget {
 }
 ```
 
-这样就可以在任意 Flutter 工程中，以「无 Material、可多主题」的方式复用 MiniUi 提供的底层组件。  
+This lets you reuse MiniUi’s “no‑Material, multi‑theme” components inside any Flutter project.

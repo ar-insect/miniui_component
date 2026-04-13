@@ -3,7 +3,8 @@ import 'package:miniui/core/utils/tokens.dart';
 
 export 'package:miniui/core/utils/tokens.dart';
 
-/// 主题控制器，负责保存当前主题并对外提供切换能力。
+/// Theme controller that stores the current [MiniTheme] and notifies listeners
+/// when it changes.
 class MiniThemeController extends ChangeNotifier {
   MiniThemeController({
     MiniTheme? initialTheme,
@@ -14,13 +15,13 @@ class MiniThemeController extends ChangeNotifier {
   MiniTheme _theme;
   final List<MiniTheme> _availableThemes;
 
-  /// 当前生效的主题。
+  /// Currently active theme.
   MiniTheme get theme => _theme;
 
-  /// 当前可选的全部主题列表。
+  /// All available themes that can be switched to.
   List<MiniTheme> get availableThemes => List.unmodifiable(_availableThemes);
 
-  /// 直接设置主题实例并通知所有监听者。
+  /// Set the theme instance directly and notify listeners if it changed.
   void setTheme(MiniTheme theme) {
     if (identical(theme, _theme)) {
       return;
@@ -29,7 +30,7 @@ class MiniThemeController extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// 根据主题名称在可选主题中查找并切换主题。
+  /// Find and switch theme by its [name] from the available theme list.
   void setThemeByName(String name) {
     for (final MiniTheme theme in _availableThemes) {
       if (theme.name == name) {
@@ -39,10 +40,11 @@ class MiniThemeController extends ChangeNotifier {
     }
   }
 
-  /// 基于当前主题，按需替换 spacing / radius / typography 等 Token。
+  /// Update token groups (spacing / radius / typography / component sizes)
+  /// based on the current theme.
   ///
-  /// 调用者可以先通过 [theme] 读取当前 Token，再使用 copyWith/自定义
-  /// 数值构造新的 Token，并传入本方法完成整体更新。
+  /// Callers usually read tokens from [theme], build new token objects via
+  /// `copyWith` or custom constructors, and pass them here to update the theme.
   void updateTokens({
     MiniSpacingTokens? spacing,
     MiniRadiusTokens? radius,
@@ -63,7 +65,7 @@ class MiniThemeController extends ChangeNotifier {
   }
 }
 
-/// 将 [MiniTheme] 注入到 Widget 树中的 InheritedWidget。
+/// InheritedWidget that injects [MiniTheme] into the widget tree.
 class MiniThemeProvider extends InheritedWidget {
   final MiniTheme theme;
 
@@ -73,7 +75,7 @@ class MiniThemeProvider extends InheritedWidget {
     required super.child,
   });
 
-  /// 从上下文中读取当前的 [MiniTheme]。
+  /// Read current [MiniTheme] from the [BuildContext].
   static MiniTheme of(BuildContext context) {
     final MiniThemeProvider? provider =
         context.dependOnInheritedWidgetOfExactType<MiniThemeProvider>();
@@ -87,11 +89,11 @@ class MiniThemeProvider extends InheritedWidget {
   }
 }
 
-/// 所有组件的基础类，提供统一的 [themeOf] 方法。
+/// Base class for all components, exposing a shared [themeOf] helper.
 abstract class BaseComponent extends StatelessWidget {
   const BaseComponent({super.key});
 
-  /// 从上下文中获取当前生效的主题。
+  /// Get the current active [MiniTheme] from [context].
   MiniTheme themeOf(BuildContext context) {
     return MiniThemeProvider.of(context);
   }

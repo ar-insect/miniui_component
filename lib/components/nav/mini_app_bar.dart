@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:miniui/core/base/base_component.dart';
 
-/// 顶部导航栏组件，支持左侧返回、标题居中和右侧操作区。
+/// Top app bar with optional leading widget, centered title and trailing actions.
 class MiniAppBar extends BaseComponent {
   final Widget? leading;
   final Widget? title;

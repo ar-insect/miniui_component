@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:miniui/core/base/base_component.dart';
 
-/// 卡片容器组件，用于包裹内容并应用统一的卡片样式，支持普通与玻璃态两种风格。
+/// Card container used to wrap content and apply a consistent card style.
 class MiniCard extends BaseComponent {
   final Widget child;
   final EdgeInsetsGeometry padding;
@@ -25,7 +25,7 @@ class MiniCard extends BaseComponent {
       child: child,
     );
 
-    // 外层统一给卡片加一层轻微阴影，以贴近 iOS 16 之后的卡片视觉效果。
+    // Add a subtle shadow to approximate the card style in modern iOS.
     return Padding(
       padding: margin,
       child: DecoratedBox(

@@ -1,7 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:miniui/core/base/base_component.dart';
 
-/// 单选框组件，使用泛型值标识选项，支持带文案和禁用态。
+/// Radio component using a generic value to represent each option, supporting
+/// optional label and disabled state.
 class MiniRadio<T> extends BaseComponent {
   final T value;
   final T? groupValue;
@@ -92,4 +93,3 @@ class MiniRadio<T> extends BaseComponent {
     );
   }
 }
-

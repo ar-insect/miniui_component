@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:miniui/core/base/base_component.dart';
 
-/// 列表分割线组件，用于在列表项之间展示细线分隔。
+/// Thin divider used between list items.
 class MiniDivider extends BaseComponent {
   final double thickness;
   final double indent;
@@ -31,4 +31,3 @@ class MiniDivider extends BaseComponent {
     );
   }
 }
-

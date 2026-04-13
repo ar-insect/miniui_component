@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:miniui/components/text/mini_text.dart';
 import 'package:miniui/core/base/base_component.dart';
 
-/// SegmentedControl 的单个段配置，包含值与显示文案。
+/// Configuration for a single segment (value + display label).
 class MiniSegment<T> {
   final T value;
   final String label;
@@ -13,7 +13,8 @@ class MiniSegment<T> {
   });
 }
 
-/// 分段控制组件，适合用于少量离散选项的切换。
+/// Segmented control widget, suitable for switching between a small number
+/// of discrete options.
 class MiniSegmentedControl<T> extends BaseComponent {
   final List<MiniSegment<T>> segments;
   final T? value;

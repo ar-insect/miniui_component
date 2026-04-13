@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-/// 描述一组语义化的颜色 Token，用于统一管理主题中的主色、背景色等。
+/// Semantic color tokens used to represent primary/background/foreground colors.
 class MiniColorTokens {
   final Color primary;
   final Color background;
@@ -31,7 +31,7 @@ class MiniColorTokens {
   }
 }
 
-/// 描述一组语义化的间距 Token，从 xs 到 xl 递增，用于统一布局间距。
+/// Semantic spacing tokens from xs to xl, used to drive layout spacing.
 class MiniSpacingTokens {
   final double xs;
   final double sm;
@@ -80,7 +80,7 @@ class MiniSpacingTokens {
   }
 }
 
-/// 描述一组圆角 Token，用于统一组件的圆角风格。
+/// Corner radius tokens used to unify corner styles across components.
 class MiniRadiusTokens {
   final BorderRadius small;
   final BorderRadius medium;
@@ -122,7 +122,7 @@ class MiniRadiusTokens {
   }
 }
 
-/// 描述一组排版 Token，用于统一文字大小和字重。
+/// Typography tokens used to unify text sizes and weights.
 class MiniTypographyTokens {
   final TextStyle body;
   final TextStyle small;
@@ -168,13 +168,13 @@ class MiniComponentSizeTokens {
   final EdgeInsets buttonPadding;
   final EdgeInsets inputPadding;
 
-  /// 按钮与输入框等组件的「整体尺寸」Token。
+  /// Component-level size tokens for controls such as buttons and inputs.
   ///
-  /// - buttonPadding：控制按钮的高度和左右留白
-  /// - inputPadding：控制输入框的高度和左右留白
+  /// - [buttonPadding]: controls overall button height and horizontal padding.
+  /// - [inputPadding]: controls overall input height and horizontal padding.
   ///
-  /// 注意：与 [MiniSpacingTokens] 不同，这里描述的是组件级别的尺寸，
-  /// 用于在不同主题之间快速切换紧凑 / 宽松风格。
+  /// Unlike [MiniSpacingTokens] (which is layout spacing), this describes
+  /// component sizes so themes can switch between dense / relaxed styles.
   const MiniComponentSizeTokens({
     required this.buttonPadding,
     required this.inputPadding,
@@ -230,7 +230,8 @@ class MiniSizePreset {
   });
 }
 
-/// 聚合颜色、间距、圆角、排版等多类 Token，构成一整套主题。
+/// Aggregates color / spacing / radius / typography / component-size tokens
+/// into a complete theme.
 class MiniTheme {
   final String name;
   final Brightness brightness;
@@ -275,14 +276,15 @@ class MiniTheme {
     MiniTheme b,
     double t,
   ) {
-    // 为不同 Token 使用略微不同的补间曲线，使整体主题切换更柔和。
+    // Use different curves for each token group to make theme transitions
+    // feel smoother and less mechanical.
     final double colorT = Curves.easeInOutCubic.transform(t);
     final double spacingT = Curves.easeOutCubic.transform(t);
     final double radiusT = Curves.easeOut.transform(t);
     final double typographyT = Curves.easeInOut.transform(t);
     final double componentSizeT = spacingT;
 
-    // 避免在一半进度时就切换明暗模式，延后到 0.75 再翻转亮度。
+    // Avoid flipping brightness midway; delay it until 0.75 to reduce flicker.
     const double brightnessFlipPoint = 0.75;
     final Brightness brightness =
         t < brightnessFlipPoint ? a.brightness : b.brightness;
@@ -307,7 +309,8 @@ class MiniTheme {
   }
 }
 
-/// 内置的一组主题工厂，提供默认间距/圆角/排版和多套配色方案。
+/// Built-in theme factory: bundles default spacing/radius/typography and
+/// several color palettes.
 class MiniThemes {
   static const MiniComponentSizeTokens defaultComponentSizes =
       MiniComponentSizeTokens(

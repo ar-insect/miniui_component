@@ -1,7 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:miniui/core/base/base_component.dart';
 
-/// 复选框组件，支持带文案和禁用态，遵循主题配色。
+/// Checkbox component with optional label and disabled state, following
+/// theme colors.
 class MiniCheckbox extends BaseComponent {
   final bool value;
   final ValueChanged<bool>? onChanged;
@@ -86,4 +87,3 @@ class MiniCheckbox extends BaseComponent {
     );
   }
 }
-

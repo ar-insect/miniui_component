@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:miniui/core/base/base_component.dart';
 
-/// 轻量级底部 Toast 提示组件。
+/// Lightweight bottom toast component.
 class MiniToast extends BaseComponent {
   final String message;
 
@@ -12,7 +12,7 @@ class MiniToast extends BaseComponent {
     required this.message,
   });
 
-  /// 以 Overlay 的方式在页面底部显示一条 Toast。
+  /// Show a toast at the bottom of the page using [Overlay].
   static Future<void> show(
     BuildContext context,
     String message, {

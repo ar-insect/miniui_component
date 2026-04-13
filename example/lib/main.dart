@@ -90,9 +90,9 @@ class _MiniUiAppState extends State<MiniUiApp> {
                   controller: widget.controller,
                 );
             }
-            // 在 iOS 上直接使用 CupertinoPageRoute：
-            // - 自带从右向左的页面切换动画
-            // - 支持系统级「左侧边缘右滑返回」的交互式手势
+            // On iOS use CupertinoPageRoute:
+            // - built-in right-to-left transition
+            // - system edge-swipe back gesture support
             if (defaultTargetPlatform == TargetPlatform.iOS) {
               return CupertinoPageRoute<void>(
                 settings: settings,
@@ -100,7 +100,8 @@ class _MiniUiAppState extends State<MiniUiApp> {
               );
             }
 
-            // 其它平台（Android / Web / 桌面）使用自定义的左右滑动过渡。
+            // On other platforms (Android / Web / desktop) use a custom
+            // horizontal slide transition.
             return PageRouteBuilder<void>(
               settings: settings,
               pageBuilder: (
@@ -118,7 +119,7 @@ class _MiniUiAppState extends State<MiniUiApp> {
               ) {
                 final Size size = MediaQuery.of(context).size;
 
-                // 使用曲线对原始动画值做二次处理，让滑动更平滑自然。
+                // Apply easing curve to make the slide animation feel smoother.
                 final Animation<double> curvedAnimation = CurvedAnimation(
                   parent: animation,
                   curve: Curves.easeOutCubic,

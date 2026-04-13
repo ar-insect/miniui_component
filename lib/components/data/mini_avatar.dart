@@ -1,7 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:miniui/core/base/base_component.dart';
 
-/// 头像组件，可展示图片或根据文本首字母生成圆形头像。
+/// Avatar component that shows an image, or generates a circular avatar from
+/// the first letter of [text].
 class MiniAvatar extends BaseComponent {
   final ImageProvider? image;
   final String? text;
@@ -55,4 +56,3 @@ class MiniAvatar extends BaseComponent {
     return content;
   }
 }
-

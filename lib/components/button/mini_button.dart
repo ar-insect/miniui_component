@@ -3,14 +3,14 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:miniui/core/base/base_component.dart';
 
-/// Mini 按钮的样式枚举，包含主按钮、幽灵按钮和危险按钮三种风格。
+/// Button variants: primary / ghost / danger.
 enum MiniButtonVariant {
   primary,
   ghost,
   danger,
 }
 
-/// 基础按钮组件，支持三种视觉风格和禁用态。
+/// Core button component that supports three visual styles and disabled state.
 class MiniButton extends BaseComponent {
   final String label;
   final VoidCallback? onPressed;
@@ -39,7 +39,7 @@ class MiniButton extends BaseComponent {
     );
   }
 
-  /// 根据当前主题和按钮风格，计算按钮的背景色、前景色和边框色。
+  /// Resolve background / foreground / border colors from [theme] and [variant].
   MiniButtonColors _resolveColors(MiniTheme theme) {
     switch (variant) {
       case MiniButtonVariant.primary:
@@ -91,7 +91,7 @@ class _MiniButtonBodyState extends State<_MiniButtonBody> {
     if (widget.disabled || widget.onPressed == null) {
       return;
     }
-    // 按下时立刻进入按压态，同时取消之前可能遗留的定时器。
+    // Immediately enter pressed state and cancel any existing reset timer.
     _pressResetTimer?.cancel();
     setState(() {
       _pressed = true;
@@ -102,8 +102,9 @@ class _MiniButtonBodyState extends State<_MiniButtonBody> {
     if (widget.disabled || widget.onPressed == null) {
       return;
     }
-    // 松开后稍微延迟一段时间再还原，制造轻微的「回弹」手感。
-    // 使用 Timer 便于在 dispose 中统一取消，避免测试时产生挂起定时器。
+    // Restore pressed state slightly after release to create a subtle
+    // "bounce" feeling. Timer is used so it can be cancelled in [dispose],
+    // avoiding pending timers during tests.
     _pressResetTimer?.cancel();
     _pressResetTimer = Timer(const Duration(milliseconds: 80), () {
       if (!mounted) {
@@ -117,7 +118,8 @@ class _MiniButtonBodyState extends State<_MiniButtonBody> {
 
   @override
   void dispose() {
-    // 防止组件销毁后定时器仍在回调 setState，导致异常。
+    // Ensure timer is cancelled before the widget is disposed to avoid
+    // setState being called after dispose.
     _pressResetTimer?.cancel();
     super.dispose();
   }
@@ -186,7 +188,7 @@ class _MiniButtonBodyState extends State<_MiniButtonBody> {
   }
 }
 
-/// 用于承载按钮的背景色、前景色和边框色配置。
+/// Helper container for button background / foreground / border colors.
 class MiniButtonColors {
   final Color background;
   final Color foreground;

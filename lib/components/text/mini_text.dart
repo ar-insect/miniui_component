@@ -1,7 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:miniui/core/base/base_component.dart';
 
-/// 文本封装组件，自动应用主题中的默认排版和前景色。
+/// Text wrapper that automatically applies theme typography and foreground
+/// color.
 class MiniText extends BaseComponent {
   final String data;
   final TextStyle? style;

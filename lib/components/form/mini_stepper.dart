@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:miniui/core/base/base_component.dart';
 
-/// 数字步进器组件，通过加减按钮控制整数值变更。
+/// Numeric stepper that changes an integer value via + / - buttons.
 class MiniStepper extends BaseComponent {
   final int value;
   final int min;
@@ -98,4 +98,3 @@ class MiniStepper extends BaseComponent {
     );
   }
 }
-

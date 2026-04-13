@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:miniui/core/base/base_component.dart';
 
-/// 空状态展示组件，用于在没有数据时给出统一的提示占位。
+/// Empty-state component used when there is no data to show.
 class MiniEmpty extends BaseComponent {
   final String message;
   final Widget? icon;

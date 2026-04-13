@@ -1,4 +1,4 @@
-/// MiniUi 组件库对外暴露的统一入口。
+/// Public entry point for the MiniUi component library.
 library miniui;
 
 export 'core/base/base_component.dart';

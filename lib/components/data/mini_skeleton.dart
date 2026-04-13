@@ -1,13 +1,13 @@
 import 'package:flutter/widgets.dart';
 import 'package:miniui/core/base/base_component.dart';
 
-/// 骨架屏形状类型，支持矩形和圆形两种占位形态。
+/// Skeleton shapes supported by [MiniSkeleton] (rectangular or circular).
 enum MiniSkeletonShape {
   rect,
   circle,
 }
 
-/// 骨架屏组件，用于在数据加载中展示占位内容。
+/// Skeleton placeholder used while data is loading.
 class MiniSkeleton extends BaseComponent {
   final double width;
   final double height;
@@ -45,4 +45,3 @@ class MiniSkeleton extends BaseComponent {
     );
   }
 }
-

@@ -1,1 +1,2 @@
-// 预留文件：曾用于存放视觉特效组件，当前版本不再提供相关实现。
+// Placeholder file: previously used for visual effect components.
+// No implementation is shipped in the current version.

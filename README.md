@@ -31,7 +31,7 @@ This repository contains both the component implementations and a visual demo ap
   - Form: `MiniCheckbox / MiniSwitch / MiniStepper / MiniSearchBar`
   - List: `MiniDivider / MiniListItem`
   - Navigation & layout: `MiniAppBar / MiniTabBar / MiniPageScaffold`
--  - Feedback: `MiniToast / MiniDialog / MiniSnackbar / MiniLoadingOverlay`
+-  - Feedback: `MiniToast / MiniDialog / MiniSnackbar / MiniLoadingOverlay / MiniBottomSheet`
 
 - **Demo pages**
   - Home: theme switching + basic components + form examples + list & toast examples
@@ -536,9 +536,9 @@ import 'package:miniui/miniui.dart';
 - Feedback
   - `MiniToast.show(context, message)`
   - `MiniDialog`
-  - *(MiniActionSheet has been removed from the public API.)*
   - `MiniSnackbar`
   - `MiniLoadingOverlay`
+  - `MiniBottomSheet`
 
 ---
 
@@ -576,7 +576,7 @@ Key pages:
   - Combination of `MiniPageScaffold + MiniAppBar + MiniTabBar + MiniSegmentedControl`
 
 - **MiniFeedbackDemoPage** (`example/lib/demo/feedback_page.dart`)
--  - `MiniDialog / MiniSnackbar / MiniLoadingOverlay`
+  - `MiniDialog / MiniBottomSheet / MiniSnackbar / MiniLoadingOverlay`
   - `MiniBadge / MiniAvatar / MiniSkeleton`
 
 ---

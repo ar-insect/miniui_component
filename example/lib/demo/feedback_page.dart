@@ -77,7 +77,55 @@ class _MiniFeedbackDemoPageState extends State<MiniFeedbackDemoPage> {
             },
           ),
           SizedBox(height: theme.spacing.sm),
-          // ActionSheet demo removed; Snackbar and Loading are kept as examples.
+          MiniButton(
+            label: 'Show bottom sheet',
+            variant: MiniButtonVariant.ghost,
+            onPressed: () {
+              MiniBottomSheet.show<void>(
+                context,
+                builder: (BuildContext context) {
+                  final MiniTheme theme = MiniThemeProvider.of(context);
+
+                  return MiniBottomSheet(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        MiniText(
+                          'Bottom sheet title',
+                          style: theme.typography.title.copyWith(
+                            color: theme.colors.foreground,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        MiniText(
+                          'Use MiniBottomSheet to present any custom content '
+                          'from the bottom of the screen.',
+                          style: theme.typography.body.copyWith(
+                            color: theme.colors.foreground.withValues(
+                              alpha: 0.8,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 16),
+                        const MiniDivider(),
+                        SizedBox(height: 16),
+                        SizedBox(
+                          width: double.infinity,
+                          child: MiniButton(
+                            label: 'Confirm',
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
+            },
+          ),
           SizedBox(height: theme.spacing.sm),
           MiniButton(
             label: 'Show Snackbar',

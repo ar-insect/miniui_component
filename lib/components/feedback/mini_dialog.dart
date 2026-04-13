@@ -13,7 +13,7 @@ class MiniDialog extends BaseComponent {
     super.key,
     this.title,
     required this.message,
-    this.confirmLabel = '确定',
+    this.confirmLabel = 'Confirm',
     this.cancelLabel,
   });
 
@@ -25,8 +25,8 @@ class MiniDialog extends BaseComponent {
     BuildContext context, {
     String? title,
     required String message,
-    String confirmLabel = '确定',
-    String? cancelLabel = '取消',
+    String confirmLabel = 'Confirm',
+    String? cancelLabel = 'Cancel',
   }) {
     return Navigator.of(context).push<bool>(
       PageRouteBuilder<bool>(

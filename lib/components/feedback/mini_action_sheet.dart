@@ -24,7 +24,7 @@ class MiniActionSheet extends BaseComponent {
     super.key,
     this.title,
     required this.actions,
-    this.cancelLabel = '取消',
+    this.cancelLabel = 'Cancel',
   });
 
   /// Push an action sheet route onto the navigation stack.
@@ -32,7 +32,7 @@ class MiniActionSheet extends BaseComponent {
     BuildContext context, {
     String? title,
     required List<MiniActionSheetAction> actions,
-    String cancelLabel = '取消',
+    String cancelLabel = 'Cancel',
   }) {
     return Navigator.of(context).push<void>(
       PageRouteBuilder<void>(

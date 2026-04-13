@@ -28,7 +28,7 @@ class MiniListDemoPage extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsets.only(right: theme.spacing.sm),
                       child: MiniText(
-                        '‹ 返回',
+                        '‹ Back',
                         style: theme.typography.body.copyWith(
                           color: theme.colors.foreground,
                         ),
@@ -36,7 +36,7 @@ class MiniListDemoPage extends StatelessWidget {
                     ),
                   ),
                   MiniText(
-                    '列表页示例',
+                    'List demo',
                     style: theme.typography.title.copyWith(
                       color: theme.colors.foreground,
                     ),
@@ -53,14 +53,14 @@ class MiniListDemoPage extends StatelessWidget {
                 },
                 itemBuilder: (BuildContext context, int index) {
                   return MiniListItem(
-                    title: '列表项 ${index + 1}',
+                    title: 'Item ${index + 1}',
                     subtitle:
-                        '这是列表项的描述信息，用于展示 MiniListItem 的效果。',
-                    trailing: const MiniTag(label: '查看'),
+                        'Description text to demonstrate MiniListItem layout.',
+                    trailing: const MiniTag(label: 'View'),
                     onTap: () {
                       MiniToast.show(
                         context,
-                        '点击了列表项 ${index + 1}',
+                        'Tapped item ${index + 1}',
                       );
                     },
                   );
@@ -73,4 +73,3 @@ class MiniListDemoPage extends StatelessWidget {
     );
   }
 }
-

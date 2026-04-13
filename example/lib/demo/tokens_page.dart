@@ -18,7 +18,7 @@ class MiniTokensPage extends StatelessWidget {
             Navigator.of(context).pop();
           },
           child: MiniText(
-            '‹ 返回',
+            '‹ Back',
             style: theme.typography.body.copyWith(
               color: theme.colors.foreground,
             ),
@@ -236,22 +236,22 @@ class MiniTokensPage extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           MiniText(
-            'Heading - 标题文字',
+            'Heading - large title text',
             style: t.heading.copyWith(color: theme.colors.foreground),
           ),
           const SizedBox(height: 8),
           MiniText(
-            'Title - 分组标题',
+            'Title - section header',
             style: t.title.copyWith(color: theme.colors.foreground),
           ),
           const SizedBox(height: 8),
           MiniText(
-            'Body - 正文内容，用于大部分文本展示。',
+            'Body - primary content text for most copy.',
             style: t.body.copyWith(color: theme.colors.foreground),
           ),
           const SizedBox(height: 8),
           MiniText(
-            'Small - 辅助说明文字。',
+            'Small - secondary helper text.',
             style: t.small.copyWith(
               color: theme.colors.foreground.withValues(alpha: 0.8),
             ),

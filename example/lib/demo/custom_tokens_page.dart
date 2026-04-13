@@ -41,13 +41,13 @@ class _MiniCustomTokensPageState extends State<MiniCustomTokensPage> {
             Navigator.of(context).pop();
           },
           child: MiniText(
-            '‹ 返回',
+            '‹ Back',
             style: theme.typography.body.copyWith(
               color: theme.colors.foreground,
             ),
           ),
         ),
-        title: const MiniText('自定义外观'),
+        title: const MiniText('Custom appearance'),
         centerTitle: true,
       ),
       body: Container(
@@ -75,7 +75,7 @@ class _MiniCustomTokensPageState extends State<MiniCustomTokensPage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           const MiniText(
-            '全局参数',
+            'Global parameters',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
@@ -83,7 +83,7 @@ class _MiniCustomTokensPageState extends State<MiniCustomTokensPage> {
           ),
           SizedBox(height: theme.spacing.sm),
           _MiniSliderRow(
-            label: '圆角 (medium)',
+            label: 'Corner radius (medium)',
             value: _radiusValue,
             min: 0,
             max: 24,
@@ -103,7 +103,7 @@ class _MiniCustomTokensPageState extends State<MiniCustomTokensPage> {
           ),
           SizedBox(height: theme.spacing.sm),
           _MiniSliderRow(
-            label: '字体缩放',
+            label: 'Font scale',
             value: _fontScale,
             min: 0.8,
             max: 1.4,
@@ -124,7 +124,7 @@ class _MiniCustomTokensPageState extends State<MiniCustomTokensPage> {
           ),
           SizedBox(height: theme.spacing.sm),
           _MiniSliderRow(
-            label: '间距缩放',
+            label: 'Spacing scale',
             value: _spacingScale,
             min: 0.7,
             max: 1.5,
@@ -155,7 +155,7 @@ class _MiniCustomTokensPageState extends State<MiniCustomTokensPage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           const MiniText(
-            '预览',
+            'Preview',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
@@ -163,20 +163,20 @@ class _MiniCustomTokensPageState extends State<MiniCustomTokensPage> {
           ),
           SizedBox(height: theme.spacing.md),
           MiniButton(
-            label: '主要按钮',
+            label: 'Primary button',
             onPressed: () {},
           ),
           SizedBox(height: theme.spacing.sm),
           MiniButton(
-            label: '幽灵按钮',
+            label: 'Ghost button',
             variant: MiniButtonVariant.ghost,
             onPressed: () {},
           ),
           SizedBox(height: theme.spacing.md),
-          const MiniText('标题文本 Heading'),
-          const MiniText('分组标题 Title'),
-          const MiniText('正文 Body，用于展示主要内容。'),
-          const MiniText('小字 Small，用于辅助说明。'),
+          const MiniText('Heading text'),
+          const MiniText('Section title'),
+          const MiniText('Body text for primary content.'),
+          const MiniText('Small caption text for additional hints.'),
         ],
       ),
     );
@@ -192,7 +192,7 @@ class _MiniCustomTokensPageState extends State<MiniCustomTokensPage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           MiniText(
-            '预设主题：${theme.name}',
+            'Preset theme: ${theme.name}',
             style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,

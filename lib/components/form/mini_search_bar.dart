@@ -11,7 +11,7 @@ class MiniSearchBar extends StatefulWidget {
     super.key,
     this.initialValue,
     this.onChanged,
-    this.placeholder = '搜索',
+    this.placeholder = 'Search',
   });
 
   @override

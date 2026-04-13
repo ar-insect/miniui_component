@@ -25,13 +25,13 @@ class _MiniFeedbackDemoPageState extends State<MiniFeedbackDemoPage> {
             Navigator.of(context).pop();
           },
           child: MiniText(
-            '‹ 返回',
+            '‹ Back',
             style: theme.typography.body.copyWith(
               color: theme.colors.foreground,
             ),
           ),
         ),
-        title: const MiniText('反馈组件示例'),
+        title: const MiniText('Feedback components'),
         centerTitle: true,
       ),
       body: Container(
@@ -57,7 +57,7 @@ class _MiniFeedbackDemoPageState extends State<MiniFeedbackDemoPage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           const MiniText(
-            '弹层与反馈',
+            'Overlays & feedback',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
@@ -65,37 +65,37 @@ class _MiniFeedbackDemoPageState extends State<MiniFeedbackDemoPage> {
           ),
           SizedBox(height: theme.spacing.md),
           MiniButton(
-            label: '显示 Dialog',
+            label: 'Show Dialog',
             onPressed: () async {
               await MiniDialog.show(
                 context,
                 title: 'MiniDialog',
-                message: '这是一个简易的对话框示例。',
-                confirmLabel: '确认',
-                cancelLabel: '取消',
+                message: 'This is a simple dialog example.',
+                confirmLabel: 'Confirm',
+                cancelLabel: 'Cancel',
               );
             },
           ),
           SizedBox(height: theme.spacing.sm),
           MiniButton(
-            label: '显示 ActionSheet',
+            label: 'Show ActionSheet',
             variant: MiniButtonVariant.ghost,
             onPressed: () {
               MiniActionSheet.show(
                 context,
-                title: '操作',
+                title: 'Actions',
                 actions: <MiniActionSheetAction>[
                   MiniActionSheetAction(
-                    label: '复制',
+                    label: 'Copy',
                     onPressed: () {
-                      MiniToast.show(context, '点击了复制');
+                      MiniToast.show(context, 'Tapped Copy');
                     },
                   ),
                   MiniActionSheetAction(
-                    label: '删除',
+                    label: 'Delete',
                     destructive: true,
                     onPressed: () {
-                      MiniToast.show(context, '点击了删除');
+                      MiniToast.show(context, 'Tapped Delete');
                     },
                   ),
                 ],
@@ -104,22 +104,22 @@ class _MiniFeedbackDemoPageState extends State<MiniFeedbackDemoPage> {
           ),
           SizedBox(height: theme.spacing.sm),
           MiniButton(
-            label: '显示 Snackbar',
+            label: 'Show Snackbar',
             variant: MiniButtonVariant.ghost,
             onPressed: () {
               MiniSnackbar.show(
                 context,
-                '保存成功',
-                actionLabel: '撤销',
+                'Saved successfully',
+                actionLabel: 'Undo',
                 onAction: () {
-                  MiniToast.show(context, '点击了撤销');
+                  MiniToast.show(context, 'Tapped Undo');
                 },
               );
             },
           ),
           SizedBox(height: theme.spacing.sm),
           MiniButton(
-            label: '显示全屏 Loading',
+            label: 'Show full-screen Loading',
             variant: MiniButtonVariant.ghost,
             onPressed: () async {
               _loadingEntry = MiniLoadingOverlay.show(context);
@@ -141,7 +141,7 @@ class _MiniFeedbackDemoPageState extends State<MiniFeedbackDemoPage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           const MiniText(
-            '状态展示',
+            'Status showcase',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
@@ -189,4 +189,3 @@ class _MiniFeedbackDemoPageState extends State<MiniFeedbackDemoPage> {
     );
   }
 }
-

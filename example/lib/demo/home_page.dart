@@ -68,7 +68,7 @@ class _MiniHomePageState extends State<MiniHomePage> {
         ),
         const SizedBox(height: 4),
         MiniText(
-          '当前主题：${theme.name}',
+          'Current theme: ${theme.name}',
           style: theme.typography.small.copyWith(
             color: theme.colors.foreground.withOpacity(0.7),
           ),
@@ -83,7 +83,7 @@ class _MiniHomePageState extends State<MiniHomePage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           const MiniText(
-            '组件示例',
+            'Component examples',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
@@ -91,25 +91,25 @@ class _MiniHomePageState extends State<MiniHomePage> {
           ),
           const SizedBox(height: 12),
           MiniInput(
-            placeholder: '输入一些文字',
+            placeholder: 'Type something',
             onChanged: (_) {},
           ),
           const SizedBox(height: 12),
           Row(
             children: <Widget>[
               MiniButton(
-                label: '主按钮',
+                label: 'Primary',
                 onPressed: () {},
               ),
               const SizedBox(width: 12),
               MiniButton(
-                label: '幽灵按钮',
+                label: 'Ghost',
                 variant: MiniButtonVariant.ghost,
                 onPressed: () {},
               ),
               const SizedBox(width: 12),
               MiniButton(
-                label: '危险',
+                label: 'Danger',
                 variant: MiniButtonVariant.danger,
                 onPressed: () {},
               ),
@@ -118,9 +118,9 @@ class _MiniHomePageState extends State<MiniHomePage> {
           const SizedBox(height: 12),
           Row(
             children: const <Widget>[
-              MiniTag(label: '标签'),
+              MiniTag(label: 'Tag'),
               SizedBox(width: 8),
-              MiniTag(label: '状态'),
+              MiniTag(label: 'Status'),
             ],
           ),
           SizedBox(height: theme.spacing.sm),
@@ -161,7 +161,7 @@ class _MiniHomePageState extends State<MiniHomePage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           const MiniText(
-            '表单示例',
+            'Form examples',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
@@ -170,7 +170,7 @@ class _MiniHomePageState extends State<MiniHomePage> {
           const SizedBox(height: 12),
           MiniCheckbox(
             value: _agreed,
-            label: '我已阅读并同意协议',
+            label: 'I have read and agree to the terms',
             onChanged: (bool v) {
               setState(() {
                 _agreed = v;
@@ -181,8 +181,8 @@ class _MiniHomePageState extends State<MiniHomePage> {
           MiniSegmentedControl<String>(
             value: _selectedOption,
             segments: const <MiniSegment<String>>[
-              MiniSegment<String>(value: 'a', label: '选项 A'),
-              MiniSegment<String>(value: 'b', label: '选项 B'),
+              MiniSegment<String>(value: 'a', label: 'Option A'),
+              MiniSegment<String>(value: 'b', label: 'Option B'),
             ],
             onChanged: (String v) {
               setState(() {
@@ -194,7 +194,7 @@ class _MiniHomePageState extends State<MiniHomePage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              const MiniText('接收推送通知'),
+              const MiniText('Receive push notifications'),
               MiniSwitch(
                 value: _notificationsEnabled,
                 onChanged: (bool v) {
@@ -216,7 +216,7 @@ class _MiniHomePageState extends State<MiniHomePage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           const MiniText(
-            '列表与 Toast 示例',
+            'List & Toast examples',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
@@ -225,17 +225,17 @@ class _MiniHomePageState extends State<MiniHomePage> {
           const SizedBox(height: 8),
           const MiniDivider(),
           MiniListItem(
-            title: '账号安全',
-            subtitle: '密码、登录设备管理',
-            trailing: const MiniTag(label: '推荐'),
+            title: 'Account security',
+            subtitle: 'Password & device management',
+            trailing: const MiniTag(label: 'Recommended'),
             onTap: () {
-              MiniToast.show(context, '点击了账号安全');
+              MiniToast.show(context, 'Tapped Account security');
             },
           ),
           const MiniDivider(),
           MiniListItem(
-            title: '消息通知',
-            subtitle: '应用内消息与推送',
+            title: 'Notifications',
+            subtitle: 'In-app messages & push',
             trailing: MiniSwitch(
               value: _notificationsEnabled,
               onChanged: (bool v) {
@@ -245,22 +245,22 @@ class _MiniHomePageState extends State<MiniHomePage> {
               },
             ),
             onTap: () {
-              MiniToast.show(context, '点击了消息通知');
+              MiniToast.show(context, 'Tapped Notifications');
             },
           ),
           const MiniDivider(),
           MiniListItem(
-            title: '显示 Toast',
-            subtitle: '在底部弹出一条轻量提示',
+            title: 'Show Toast',
+            subtitle: 'Show a lightweight message at the bottom',
             showArrow: true,
             onTap: () {
-              MiniToast.show(context, '这是一条 MiniToast 提示');
+              MiniToast.show(context, 'This is a MiniToast message');
             },
           ),
           const MiniDivider(),
           MiniListItem(
-            title: '查看列表页示例',
-            subtitle: '跳转到完整列表页 Demo',
+            title: 'Open list demo',
+            subtitle: 'Navigate to full list demo',
             showArrow: true,
             onTap: () {
               Navigator.of(context).pushNamed(MiniListDemoPage.routeName);
@@ -268,8 +268,8 @@ class _MiniHomePageState extends State<MiniHomePage> {
           ),
           const MiniDivider(),
           MiniListItem(
-            title: '查看主题 Tokens 示例',
-            subtitle: '查看颜色/间距/圆角/排版 Token',
+            title: 'Open tokens demo',
+            subtitle: 'View color / spacing / radius / typography tokens',
             showArrow: true,
             onTap: () {
               Navigator.of(context).pushNamed(MiniTokensPage.routeName);
@@ -277,8 +277,8 @@ class _MiniHomePageState extends State<MiniHomePage> {
           ),
           const MiniDivider(),
           MiniListItem(
-            title: '查看布局与导航示例',
-            subtitle: '演示 AppBar / TabBar / PageScaffold',
+            title: 'Open layout & navigation demo',
+            subtitle: 'Show AppBar / TabBar / PageScaffold',
             showArrow: true,
             onTap: () {
               Navigator.of(context).pushNamed(MiniLayoutDemoPage.routeName);
@@ -286,7 +286,7 @@ class _MiniHomePageState extends State<MiniHomePage> {
           ),
           const MiniDivider(),
           MiniListItem(
-            title: '查看反馈组件示例',
+            title: 'Open feedback demo',
             subtitle: 'Dialog / ActionSheet / Snackbar / Loading',
             showArrow: true,
             onTap: () {
@@ -296,8 +296,8 @@ class _MiniHomePageState extends State<MiniHomePage> {
           ),
           const MiniDivider(),
           MiniListItem(
-            title: '查看自定义外观示例',
-            subtitle: '动态调整圆角 / 字体 / 间距',
+            title: 'Open custom appearance demo',
+            subtitle: 'Adjust radius / typography / spacing dynamically',
             showArrow: true,
             onTap: () {
               Navigator.of(context).pushNamed(MiniCustomTokensPage.routeName);

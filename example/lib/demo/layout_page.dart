@@ -26,13 +26,13 @@ class _MiniLayoutDemoPageState extends State<MiniLayoutDemoPage> {
             Navigator.of(context).pop();
           },
           child: MiniText(
-            '‹ 返回',
+            '‹ Back',
             style: theme.typography.body.copyWith(
               color: theme.colors.foreground,
             ),
           ),
         ),
-        title: const MiniText('布局与导航示例'),
+        title: const MiniText('Layout & navigation demo'),
         centerTitle: true,
       ),
       body: Container(
@@ -43,7 +43,7 @@ class _MiniLayoutDemoPageState extends State<MiniLayoutDemoPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               const MiniText(
-                '顶部 SegmentedControl',
+                'Segmented control at top',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
@@ -52,9 +52,9 @@ class _MiniLayoutDemoPageState extends State<MiniLayoutDemoPage> {
               SizedBox(height: theme.spacing.sm),
               MiniSegmentedControl<String>(
                 segments: const <MiniSegment<String>>[
-                  MiniSegment<String>(value: 'all', label: '全部'),
-                  MiniSegment<String>(value: 'fav', label: '收藏'),
-                  MiniSegment<String>(value: 'archived', label: '归档'),
+                  MiniSegment<String>(value: 'all', label: 'All'),
+                  MiniSegment<String>(value: 'fav', label: 'Favorites'),
+                  MiniSegment<String>(value: 'archived', label: 'Archived'),
                 ],
                 value: _segment,
                 onChanged: (String v) {
@@ -65,7 +65,7 @@ class _MiniLayoutDemoPageState extends State<MiniLayoutDemoPage> {
               ),
               SizedBox(height: theme.spacing.lg),
               const MiniText(
-                '内容区域',
+                'Content area',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
@@ -77,13 +77,13 @@ class _MiniLayoutDemoPageState extends State<MiniLayoutDemoPage> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
                     MiniText(
-                      '当前 Tab：$_currentTab',
+                      'Current tab: $_currentTab',
                       style: theme.typography.body
                           .copyWith(color: theme.colors.foreground),
                     ),
                     SizedBox(height: theme.spacing.xs),
                     MiniText(
-                      '当前 Segment：$_segment',
+                      'Current segment: $_segment',
                       style: theme.typography.small.copyWith(
                         color:
                             theme.colors.foreground.withValues(alpha: 0.7),
@@ -91,7 +91,8 @@ class _MiniLayoutDemoPageState extends State<MiniLayoutDemoPage> {
                     ),
                     SizedBox(height: theme.spacing.md),
                     const MiniText(
-                      '这里可以替换成真实的列表、表单或详情页内容，MiniPageScaffold 负责处理顶部导航、底部导航和安全区域。',
+                      'Replace this with real list, form or detail content. '
+                      'MiniPageScaffold handles top bar, bottom bar and safe areas.',
                     ),
                   ],
                 ),
@@ -103,15 +104,15 @@ class _MiniLayoutDemoPageState extends State<MiniLayoutDemoPage> {
       bottomBar: MiniTabBar(
         items: const <MiniTabItem>[
           MiniTabItem(
-            label: '首页',
+            label: 'Home',
             icon: _MiniNavIcon(type: _MiniNavIconType.home),
           ),
           MiniTabItem(
-            label: '消息',
+            label: 'Messages',
             icon: _MiniNavIcon(type: _MiniNavIconType.message),
           ),
           MiniTabItem(
-            label: '我的',
+            label: 'Profile',
             icon: _MiniNavIcon(type: _MiniNavIconType.profile),
           ),
         ],

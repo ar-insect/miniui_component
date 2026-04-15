@@ -1,7 +1,7 @@
 name: miniui_component
 description: "A lightweight Flutter UI component library built on widgets without material.dart."
 
-version: 0.0.2
+version: 0.0.3
 
 environment:
   sdk: ^3.11.4

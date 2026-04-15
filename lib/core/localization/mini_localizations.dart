@@ -38,21 +38,29 @@ class MiniLocalizations {
   String get layoutDemoTitle =>
       _isZh ? '布局与导航示例' : 'Layout & navigation demo';
   String get homeOpenListDemo =>
-      _isZh ? '打开列表页示例' : 'Open list demo';
+      _isZh ? '列表页示例' : 'List demo';
   String get homeOpenTokensDemo =>
-      _isZh ? '打开主题 Tokens 示例' : 'Open tokens demo';
+      _isZh ? '主题 Tokens 示例' : 'Tokens demo';
   String get homeOpenLayoutDemo =>
-      _isZh ? '打开布局与导航示例' : 'Open layout & navigation demo';
+      _isZh ? '布局与导航示例' : 'Layout & navigation demo';
   String get homeOpenFeedbackDemo =>
-      _isZh ? '打开反馈组件示例' : 'Open feedback demo';
+      _isZh ? '反馈组件示例' : 'Feedback demo';
   String get homeOpenCustomTokensDemo =>
-      _isZh ? '打开自定义外观示例' : 'Open custom appearance demo';
+      _isZh ? '自定义外观示例' : 'Custom appearance demo';
   String get homeOpenTabViewDemo =>
-      _isZh ? '打开 Tab + PageView 示例' : 'Open tab + PageView demo';
+      _isZh ? 'Tab + PageView 示例' : 'Tab + PageView demo';
   String get homeOpenFormDemo =>
-      _isZh ? '打开表单示例' : 'Open form demo';
+      _isZh ? '表单示例' : 'Form demo';
   String get homeOpenSliverDemo =>
-      _isZh ? '打开 Sliver 列表示例' : 'Open sliver list demo';
+      _isZh ? 'Sliver 列表示例' : 'Sliver list demo';
+  String get homeOpenGridDemo =>
+      _isZh ? '宫格示例' : 'Grid demo';
+  String get homeOpenProfileDemo =>
+      _isZh ? '会员中心模版' : 'Profile template';
+  String get homeOpenResultDemo =>
+      _isZh ? '结果态示例' : 'Result demo';
+  String get homeOpenBottomNavDemo =>
+      _isZh ? '底部导航模版' : 'Bottom nav demo';
   String get homeComponentExamplesTitle =>
       _isZh ? '组件示例' : 'Component examples';
   String get homeFormExamplesTitle =>

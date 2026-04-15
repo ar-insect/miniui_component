@@ -20,25 +20,7 @@ class _MiniFeedbackDemoPageState extends State<MiniFeedbackDemoPage> {
 
     return MiniPageScaffold(
       appBar: MiniAppBar(
-        leading: GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () {
-            Navigator.of(context).pop();
-          },
-          child: SizedBox(
-            width: theme.spacing.lg * 1.8,
-            height: theme.spacing.lg * 1.8,
-            child: Center(
-              child: MiniText(
-                '‹',
-                style: theme.typography.title.copyWith(
-                  fontSize: 20,
-                  color: theme.colors.foreground,
-                ),
-              ),
-            ),
-          ),
-        ),
+        leading: const MiniBackButton(),
         title: MiniText(i18n.feedbackDemoTitle),
         centerTitle: true,
       ),
@@ -133,6 +115,15 @@ class _MiniFeedbackDemoPageState extends State<MiniFeedbackDemoPage> {
             },
           ),
           SizedBox(height: theme.spacing.sm),
+          MiniBanner(
+            message: 'Saved successfully',
+            variant: MiniBannerVariant.success,
+            actionLabel: 'Undo',
+            onAction: () {
+              MiniToast.show(context, 'Tapped Undo');
+            },
+          ),
+          SizedBox(height: theme.spacing.sm),
           MiniButton(
             label: 'Show Snackbar',
             variant: MiniButtonVariant.ghost,
@@ -170,12 +161,9 @@ class _MiniFeedbackDemoPageState extends State<MiniFeedbackDemoPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          const MiniText(
-            'Status showcase',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-            ),
+          const MiniSectionHeader(
+            title: 'Status showcase',
+            subtitle: 'Badges and skeleton loaders',
           ),
           SizedBox(height: theme.spacing.md),
           Row(

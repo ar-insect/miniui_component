@@ -1,10 +1,17 @@
 import 'package:flutter/widgets.dart';
 import 'package:miniui_component/core/base/base_component.dart';
 
+enum MiniTagTone {
+  neutral,
+  success,
+  danger,
+}
+
 /// Tag component to display status text, supporting filled/outlined and
 /// optional close button styles.
 class MiniTag extends BaseComponent {
   final String label;
+  final MiniTagTone tone;
   final EdgeInsetsGeometry padding;
   final bool filled;
   final bool closable;
@@ -13,6 +20,7 @@ class MiniTag extends BaseComponent {
   const MiniTag({
     super.key,
     required this.label,
+    this.tone = MiniTagTone.neutral,
     this.padding = EdgeInsets.zero,
     this.filled = true,
     this.closable = false,
@@ -23,6 +31,19 @@ class MiniTag extends BaseComponent {
   Widget build(BuildContext context) {
     final MiniTheme theme = themeOf(context);
 
+    Color baseColor;
+    switch (tone) {
+      case MiniTagTone.neutral:
+        baseColor = theme.colors.accent;
+        break;
+      case MiniTagTone.success:
+        baseColor = theme.colors.primary;
+        break;
+      case MiniTagTone.danger:
+        baseColor = theme.colors.danger;
+        break;
+    }
+
     final EdgeInsetsGeometry resolvedPadding = padding == EdgeInsets.zero
         ? EdgeInsets.symmetric(
             horizontal: theme.spacing.sm,
@@ -30,8 +51,8 @@ class MiniTag extends BaseComponent {
           )
         : padding;
 
-    final TextStyle labelStyle = theme.typography.small
-        .copyWith(color: theme.colors.accent);
+    final TextStyle labelStyle =
+        theme.typography.small.copyWith(color: baseColor);
 
     final Widget labelText = DefaultTextStyle(
       style: labelStyle,
@@ -48,7 +69,7 @@ class MiniTag extends BaseComponent {
           height: theme.spacing.sm,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: theme.colors.accent.withValues(alpha: 0.2),
+            color: baseColor.withValues(alpha: 0.2),
           ),
         ),
       );
@@ -71,13 +92,13 @@ class MiniTag extends BaseComponent {
     return DecoratedBox(
       decoration: BoxDecoration(
         color: filled
-            ? theme.colors.accent.withValues(alpha: 0.15)
+            ? baseColor.withValues(alpha: 0.15)
             : theme.colors.background,
         borderRadius: theme.radius.pill,
         border: filled
             ? null
             : Border.all(
-                color: theme.colors.accent.withValues(alpha: 0.6),
+                color: baseColor.withValues(alpha: 0.6),
               ),
       ),
       child: content,

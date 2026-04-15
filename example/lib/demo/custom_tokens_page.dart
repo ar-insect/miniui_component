@@ -35,25 +35,7 @@ class _MiniCustomTokensPageState extends State<MiniCustomTokensPage> {
 
     return MiniPageScaffold(
       appBar: MiniAppBar(
-        leading: GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () {
-            Navigator.of(context).pop();
-          },
-          child: SizedBox(
-            width: theme.spacing.lg * 1.8,
-            height: theme.spacing.lg * 1.8,
-            child: Center(
-              child: MiniText(
-                '‹',
-                style: theme.typography.title.copyWith(
-                  fontSize: 20,
-                  color: theme.colors.foreground,
-                ),
-              ),
-            ),
-          ),
-        ),
+        leading: const MiniBackButton(),
         title: const MiniText('Custom appearance'),
         centerTitle: true,
       ),
@@ -257,8 +239,6 @@ class _MiniSliderRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final MiniTheme theme = MiniThemeProvider.of(context);
 
-    final double t = ((value - min) / (max - min)).clamp(0.0, 1.0);
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
@@ -280,68 +260,11 @@ class _MiniSliderRow extends StatelessWidget {
           ],
         ),
         SizedBox(height: theme.spacing.xs),
-        GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onPanUpdate: (DragUpdateDetails details) {
-            final RenderBox box =
-                context.findRenderObject()! as RenderBox;
-            final Offset local = box.globalToLocal(details.globalPosition);
-            final double ratio = (local.dx / box.size.width)
-                .clamp(0.0, 1.0);
-            final double newValue = min + (max - min) * ratio;
-            onChanged(newValue);
-          },
-          onTapDown: (TapDownDetails details) {
-            final RenderBox box =
-                context.findRenderObject()! as RenderBox;
-            final Offset local = box.globalToLocal(details.globalPosition);
-            final double ratio = (local.dx / box.size.width)
-                .clamp(0.0, 1.0);
-            final double newValue = min + (max - min) * ratio;
-            onChanged(newValue);
-          },
-          child: SizedBox(
-            height: theme.spacing.lg,
-            child: Stack(
-              alignment: Alignment.centerLeft,
-              children: <Widget>[
-                Container(
-                  height: 3,
-                  decoration: BoxDecoration(
-                    color: theme.colors.foreground.withOpacity(0.08),
-                    borderRadius: theme.radius.small,
-                  ),
-                ),
-                FractionallySizedBox(
-                  widthFactor: t,
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Container(
-                      height: 3,
-                      decoration: BoxDecoration(
-                        color: theme.colors.primary,
-                        borderRadius: theme.radius.small,
-                      ),
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment(-1.0 + 2.0 * t, 0),
-                  child: Container(
-                    width: theme.spacing.md,
-                    height: theme.spacing.md,
-                    decoration: BoxDecoration(
-                      color: theme.colors.background,
-                      borderRadius: theme.radius.pill,
-                      border: Border.all(
-                        color: theme.colors.primary,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+        MiniSlider(
+          value: value,
+          min: min,
+          max: max,
+          onChanged: onChanged,
         ),
       ],
     );

@@ -12,25 +12,7 @@ class MiniTokensPage extends StatelessWidget {
 
     return MiniPageScaffold(
       appBar: MiniAppBar(
-        leading: GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () {
-            Navigator.of(context).pop();
-          },
-          child: SizedBox(
-            width: theme.spacing.lg * 1.8,
-            height: theme.spacing.lg * 1.8,
-            child: Center(
-              child: MiniText(
-                '‹',
-                style: theme.typography.title.copyWith(
-                  fontSize: 20,
-                  color: theme.colors.foreground,
-                ),
-              ),
-            ),
-          ),
-        ),
+        leading: const MiniBackButton(),
         title: const MiniText('Theme Tokens'),
         centerTitle: true,
       ),

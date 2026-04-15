@@ -1,12 +1,15 @@
 import 'package:flutter/widgets.dart';
 import 'list_page.dart';
-import 'layout_page.dart';
 import 'tokens_page.dart';
 import 'feedback_page.dart';
 import 'custom_tokens_page.dart';
 import 'tab_view_page.dart';
 import 'form_page.dart';
 import 'sliver_page.dart';
+import 'profile_page.dart';
+import 'grid_page.dart';
+import 'result_page.dart';
+import 'bottom_nav_page.dart';
 import 'package:miniui_component/miniui.dart';
 
 class MiniHomePage extends StatefulWidget {
@@ -89,14 +92,9 @@ class _MiniHomePageState extends State<MiniHomePage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          MiniText(
-            i18n.homeComponentExamplesTitle,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-            ),
+          MiniSectionHeader(
+            title: i18n.homeComponentExamplesTitle,
           ),
-          const SizedBox(height: 12),
           MiniInput(
             placeholder: i18n.homeInputPlaceholder,
             onChanged: (_) {},
@@ -228,14 +226,9 @@ class _MiniHomePageState extends State<MiniHomePage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          MiniText(
-            i18n.homeListToastExamplesTitle,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-            ),
+          MiniSectionHeader(
+            title: i18n.homeListToastExamplesTitle,
           ),
-          const SizedBox(height: 8),
           const MiniDivider(),
           MiniListItem(
             title: i18n.homeAccountSecurityTitle,
@@ -290,15 +283,6 @@ class _MiniHomePageState extends State<MiniHomePage> {
           ),
           const MiniDivider(),
           MiniListItem(
-            title: i18n.homeOpenLayoutDemo,
-            subtitle: 'Show AppBar / TabBar / PageScaffold',
-            showArrow: true,
-            onTap: () {
-              Navigator.of(context).pushNamed(MiniLayoutDemoPage.routeName);
-            },
-          ),
-          const MiniDivider(),
-          MiniListItem(
             title: i18n.homeOpenFeedbackDemo,
             subtitle: 'Dialog / Snackbar / Loading overlay',
             showArrow: true,
@@ -342,6 +326,45 @@ class _MiniHomePageState extends State<MiniHomePage> {
             showArrow: true,
             onTap: () {
               Navigator.of(context).pushNamed(MiniSliverDemoPage.routeName);
+            },
+          ),
+          const MiniDivider(),
+          MiniListItem(
+            title: i18n.homeOpenGridDemo,
+            subtitle: 'MiniGrid with different column counts',
+            showArrow: true,
+            onTap: () {
+              Navigator.of(context).pushNamed(MiniGridDemoPage.routeName);
+            },
+          ),
+          const MiniDivider(),
+          MiniListItem(
+            title: i18n.homeOpenProfileDemo,
+            subtitle: 'Membership / profile template',
+            showArrow: true,
+            onTap: () {
+              Navigator.of(context)
+                  .pushNamed(MiniProfileDemoPage.routeName);
+            },
+          ),
+          const MiniDivider(),
+          MiniListItem(
+            title: i18n.homeOpenResultDemo,
+            subtitle: 'MiniResult success / error / empty',
+            showArrow: true,
+            onTap: () {
+              Navigator.of(context)
+                  .pushNamed(MiniResultDemoPage.routeName);
+            },
+          ),
+          const MiniDivider(),
+          MiniListItem(
+            title: i18n.homeOpenBottomNavDemo,
+            subtitle: 'MiniBottomNavScaffold template',
+            showArrow: true,
+            onTap: () {
+              Navigator.of(context)
+                  .pushNamed(MiniBottomNavDemoPage.routeName);
             },
           ),
         ],

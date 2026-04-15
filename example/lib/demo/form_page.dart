@@ -67,23 +67,7 @@ class _MiniFormDemoPageState extends State<MiniFormDemoPage> {
 
     return MiniPageScaffold(
       appBar: MiniAppBar(
-        leading: GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () => Navigator.of(context).pop(),
-          child: SizedBox(
-            width: theme.spacing.lg * 1.8,
-            height: theme.spacing.lg * 1.8,
-            child: Center(
-              child: MiniText(
-                '‹',
-                style: theme.typography.title.copyWith(
-                  fontSize: 20,
-                  color: theme.colors.foreground,
-                ),
-              ),
-            ),
-          ),
-        ),
+        leading: const MiniBackButton(),
         title: MiniText('Form demo'),
         centerTitle: true,
       ),
@@ -141,6 +125,20 @@ class _MiniFormDemoPageState extends State<MiniFormDemoPage> {
                   style: theme.typography.small.copyWith(
                     color: theme.colors.foreground.withValues(alpha: 0.7),
                   ),
+                ),
+                SizedBox(height: theme.spacing.lg),
+                MiniText(
+                  'About you',
+                  style: theme.typography.title.copyWith(
+                    color: theme.colors.foreground,
+                  ),
+                ),
+                SizedBox(height: theme.spacing.xs),
+                MiniTextArea(
+                  placeholder: 'Tell us a bit more about yourself',
+                  minLines: 3,
+                  maxLines: 5,
+                  onChanged: (_) {},
                 ),
                 SizedBox(height: theme.spacing.lg),
                 MiniCheckbox(

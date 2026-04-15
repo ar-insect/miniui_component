@@ -21,25 +21,9 @@ class MiniSliverDemoPage extends StatelessWidget {
                 padding: EdgeInsets.all(theme.spacing.lg),
                 child: Row(
                   children: <Widget>[
-                    GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      onTap: () => Navigator.of(context).pop(),
-                      child: Padding(
-                        padding: EdgeInsets.only(right: theme.spacing.sm),
-                        child: SizedBox(
-                          width: theme.spacing.lg * 1.8,
-                          height: theme.spacing.lg * 1.8,
-                          child: Center(
-                            child: MiniText(
-                              '‹',
-                              style: theme.typography.title.copyWith(
-                                fontSize: 20,
-                                color: theme.colors.foreground,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                    Padding(
+                      padding: EdgeInsets.only(right: theme.spacing.sm),
+                      child: const MiniBackButton(),
                     ),
                     MiniText(
                       'Sliver list demo',

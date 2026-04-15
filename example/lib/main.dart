@@ -6,11 +6,14 @@ import 'demo/custom_tokens_page.dart';
 import 'demo/home_page.dart';
 import 'demo/list_page.dart';
 import 'demo/tokens_page.dart';
-import 'demo/layout_page.dart';
 import 'demo/feedback_page.dart';
 import 'demo/tab_view_page.dart';
 import 'demo/form_page.dart';
 import 'demo/sliver_page.dart';
+import 'demo/grid_page.dart';
+import 'demo/profile_page.dart';
+import 'demo/result_page.dart';
+import 'demo/bottom_nav_page.dart';
 
 void main() {
   final MiniThemeController controller = MiniThemeController();
@@ -94,9 +97,6 @@ class _MiniUiAppState extends State<MiniUiApp> {
               case MiniTokensPage.routeName:
                 page = const MiniTokensPage();
                 break;
-              case MiniLayoutDemoPage.routeName:
-                page = const MiniLayoutDemoPage();
-                break;
               case MiniFeedbackDemoPage.routeName:
                 page = const MiniFeedbackDemoPage();
                 break;
@@ -108,6 +108,18 @@ class _MiniUiAppState extends State<MiniUiApp> {
                 break;
               case MiniSliverDemoPage.routeName:
                 page = const MiniSliverDemoPage();
+                break;
+              case MiniGridDemoPage.routeName:
+                page = const MiniGridDemoPage();
+                break;
+              case MiniProfileDemoPage.routeName:
+                page = const MiniProfileDemoPage();
+                break;
+              case MiniResultDemoPage.routeName:
+                page = const MiniResultDemoPage();
+                break;
+              case MiniBottomNavDemoPage.routeName:
+                page = const MiniBottomNavDemoPage();
                 break;
               case MiniCustomTokensPage.routeName:
                 page = MiniCustomTokensPage(

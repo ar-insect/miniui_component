@@ -9,14 +9,17 @@ export 'components/card/mini_card.dart';
 export 'components/empty/mini_empty.dart';
 export 'components/image/mini_image.dart';
 export 'components/input/mini_input.dart';
+export 'components/input/mini_text_area.dart';
 export 'components/loading/mini_loading.dart';
 export 'components/tag/mini_tag.dart';
 export 'components/text/mini_text.dart';
+export 'components/text/mini_section_header.dart';
 
 export 'components/form/mini_checkbox.dart';
 export 'components/form/mini_switch.dart';
 export 'components/form/mini_stepper.dart';
 export 'components/form/mini_search_bar.dart';
+export 'components/form/mini_slider.dart';
 
 export 'components/list/mini_divider.dart';
 export 'components/list/mini_list_item.dart';
@@ -26,11 +29,17 @@ export 'components/feedback/mini_dialog.dart';
 export 'components/feedback/mini_snackbar.dart';
 export 'components/feedback/mini_loading_overlay.dart';
 export 'components/feedback/mini_bottom_sheet.dart';
+export 'components/feedback/mini_banner.dart';
+export 'components/feedback/mini_result.dart';
 
 export 'components/nav/mini_app_bar.dart';
 export 'components/nav/mini_tab_bar.dart';
+export 'components/nav/mini_back_button.dart';
 
 export 'components/layout/mini_page_scaffold.dart';
+export 'components/layout/mini_tab_view.dart';
+export 'components/layout/mini_grid.dart';
+export 'components/layout/mini_bottom_nav_scaffold.dart';
 
 export 'components/selection/mini_segmented_control.dart';
 

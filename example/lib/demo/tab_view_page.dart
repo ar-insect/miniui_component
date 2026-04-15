@@ -11,38 +11,6 @@ class MiniTabViewDemoPage extends StatefulWidget {
 }
 
 class _MiniTabViewDemoPageState extends State<MiniTabViewDemoPage> {
-  final PageController _pageController = PageController();
-  int _currentIndex = 0;
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
-
-  void _handleTabTap(int index) {
-    if (_currentIndex == index) {
-      return;
-    }
-    setState(() {
-      _currentIndex = index;
-    });
-    _pageController.animateToPage(
-      index,
-      duration: const Duration(milliseconds: 240),
-      curve: Curves.easeOutCubic,
-    );
-  }
-
-  void _handlePageChanged(int index) {
-    if (_currentIndex == index) {
-      return;
-    }
-    setState(() {
-      _currentIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final MiniTheme theme = MiniThemeProvider.of(context);
@@ -50,23 +18,7 @@ class _MiniTabViewDemoPageState extends State<MiniTabViewDemoPage> {
 
     return MiniPageScaffold(
       appBar: MiniAppBar(
-        leading: GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () => Navigator.of(context).pop(),
-          child: SizedBox(
-            width: theme.spacing.lg * 1.8,
-            height: theme.spacing.lg * 1.8,
-            child: Center(
-              child: MiniText(
-                '‹',
-                style: theme.typography.title.copyWith(
-                  fontSize: 20,
-                  color: theme.colors.foreground,
-                ),
-              ),
-            ),
-          ),
-        ),
+        leading: const MiniBackButton(),
         title: MiniText(i18n.tabViewTitle),
         centerTitle: true,
       ),
@@ -116,7 +68,7 @@ class _MiniTabViewDemoPageState extends State<MiniTabViewDemoPage> {
                   ),
                   SizedBox(height: theme.spacing.xs),
                   MiniText(
-                    'Tabs below are driven by MiniTabBar and PageView.',
+                    'Tabs below are driven by MiniTabView.',
                     style: theme.typography.small.copyWith(
                       color: theme.colors.foreground.withValues(
                         alpha: 0.7,
@@ -127,21 +79,14 @@ class _MiniTabViewDemoPageState extends State<MiniTabViewDemoPage> {
               ),
             ),
           ),
-          MiniTabBar(
-            items: const <MiniTabItem>[
-              MiniTabItem(label: 'Overview'),
-              MiniTabItem(label: 'Details'),
-              MiniTabItem(label: 'Profile'),
-            ],
-            currentIndex: _currentIndex,
-            onTap: _handleTabTap,
-            isBottom: false,
-          ),
           Expanded(
-            child: PageView(
-              controller: _pageController,
-              onPageChanged: _handlePageChanged,
-              children: <Widget>[
+            child: MiniTabView(
+              tabs: const <MiniTabItem>[
+                MiniTabItem(label: 'Overview'),
+                MiniTabItem(label: 'Details'),
+                MiniTabItem(label: 'Profile'),
+              ],
+              pages: <Widget>[
                 _buildOverviewPage(theme),
                 _buildDetailsPage(theme),
                 _buildProfilePage(theme),
